@@ -44,9 +44,16 @@ const projects: Project[] = [
     image: velez as ImageMetadata,
     link: "https://github.com/Buga-Software/rifasvelez-web",
     preview: "https://www.rifasvelez.com",
-    status: "deployed",
+    status: "contributor",
   },
 ];
+
+const STATUS_COLORS: Record<Project["status"], { dot: string; ping: string }> =
+  {
+    deployed: { dot: "bg-lime-400", ping: "bg-lime-400" },
+    wip: { dot: "bg-yellow-300", ping: "bg-yellow-300" },
+    contributor: { dot: "bg-teal-400", ping: "bg-teal-400" },
+  };
 ---
 
 <section
@@ -79,9 +86,29 @@ const projects: Project[] = [
               <div class="flex items-center px-3">
                 <div class="flex-grow">
                   <h4 class="text-2xl font-semibold">{project.title}</h4>
-                  <span class="py-1 text-sm text-[var(--white-icon)]">
-                    {t(`projects.status.${project.status}`)}
-                  </span>
+                  {(() => {
+                    const c =
+                      STATUS_COLORS[project.status] ??
+                      STATUS_COLORS.contributor;
+                    return (
+                      <div class="mt-1 inline-flex items-center gap-2">
+                        <span
+                          class="relative flex h-2.5 w-2.5"
+                          aria-hidden="true"
+                        >
+                          <span
+                            class={`animate-ping absolute inline-flex h-full w-full rounded-full ${c.ping} opacity-75`}
+                          />
+                          <span
+                            class={`relative inline-flex h-2.5 w-2.5 rounded-full ${c.dot}`}
+                          />
+                        </span>
+                        <span class="py-1 text-sm text-[var(--white-icon)]">
+                          {t(`projects.status.${project.status}`)}
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </div>
                 <div class="flex gap-2 ml-auto">
                   <a
