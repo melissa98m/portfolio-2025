@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "/fr", "permanent": false },
+    {
+      "source": "/:path((?!fr|en|_astro|assets|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
+      "destination": "/fr/:path",
+      "permanent": false
+    }
+  ]
+}
