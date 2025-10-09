@@ -12,30 +12,30 @@ const {
   lang = "en",
   url = "/",
   ogImage = "/favicon.png",
-
 } = Astro.props;
+
+import CustomCursor from "../components/CustomCursor.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Software Developer" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta property="og:title" content="Oscar Hernandez" />
-    <meta property="og:description" content="Software Developer" />
-    <meta
-      property="og:image"
-      content="https://oscarhernandez.vercel.app/og.image.png" 
-    /><!-- a changer -->
-    <meta property="og:url" content="https://oscarhernandez.vercel.app" /><!-- a changer -->
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={url} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Mélissa Mangione Portfolio" />
 
     <title>{title}</title>
   </head>
   <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
+    <CustomCursor />
     <slot />
   </body>
 </html>
@@ -45,18 +45,14 @@ const {
 
   :root {
     --background: #101010;
-    --sec: #a476ff;
+    --sec: #a476ff;            
     --white: #dfdfdf;
     --white-icon: #f3f3f398;
     --white-icon-tr: #f3f3f310;
   }
 
   * {
-    font-family:
-      "Montserrat",
-      -apple-system,
-      system-ui,
-      sans-serif;
+    font-family: "Montserrat", -apple-system, system-ui, sans-serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -66,30 +62,15 @@ const {
     background-color: var(--sec);
     color: var(--background);
   }
-
-  /* Scrollbar styles */
-
-  ::-webkit-scrollbar {
-    width: 15px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--container);
-    border-radius: 30px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--background);
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
-  }
-
-  /* Scrollbar styles for Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 15px; }
+  ::-webkit-scrollbar-track { background: var(--container); border-radius: 30px; }
+  ::-webkit-scrollbar-thumb { background: var(--background); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
+  * { scrollbar-width: thin; scrollbar-color: var(--line) var(--container); }
+  /* disable ALL native sliders when custom sliders are active (prevents hand movement) */
+  html.custom-cursor-enabled,
+  html.custom-cursor-enabled * {
+    cursor: none !important;
   }
 </style>
