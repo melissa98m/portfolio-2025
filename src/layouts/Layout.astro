@@ -15,6 +15,7 @@ const {
 } = Astro.props;
 
 import CustomCursor from "../components/CustomCursor.astro";
+import lenisClientModuleUrl from "../scripts/lenis-init.client.js";
 ---
 
 <!doctype html>
@@ -37,16 +38,7 @@ import CustomCursor from "../components/CustomCursor.astro";
   <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
     <CustomCursor />
     <slot />
-    <script type="module">
-      import initLenis from "/src/scripts/lenis-init.client.js";
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => initLenis(), {
-          once: true,
-        });
-      } else {
-        initLenis();
-      }
-    </script>
+    <script type="module" src={lenisClientModuleUrl}></script>
   </body>
 </html>
 

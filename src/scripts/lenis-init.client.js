@@ -1,10 +1,7 @@
-
-export default async function initLenis() {
-  if (typeof window === 'undefined') return;                 // SSR safety
-  if (window.__lenis) return;                                 // déjà initialisé
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    return;
-  }
+(async () => {
+  if (typeof window === 'undefined') return;
+  if (window.__lenis) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const { default: Lenis } = await import('lenis');
 
   const lenis = new Lenis({
@@ -21,4 +18,4 @@ export default async function initLenis() {
   requestAnimationFrame(raf);
 
   window.__lenis = lenis;
-}
+})();
