@@ -2,13 +2,14 @@
 import LetterGlitch from "../React/LetterGlitch.tsx";
 import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
+const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) => string };
 ---
 
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
   <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
     <div class="text-left space-y-4">
       <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
-        Hi, I'm Oscar Hernandez
+       {t("home.hello")}
       </p>
       <div
         class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
@@ -16,19 +17,16 @@ import SkillsList from "../React/SkillsList.tsx";
         <h1
           class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none"
         >
-          Software <br /> Developer
+          {t("home.hello")}
         </h1>
         <p class="text-md md:text-2xl text-[var(--white-icon)]">
-          Transforming ideas into interactive and seamless digital experiences
-          with cutting-edge <span class="text-[var(--sec)] shiny-sec"
-            >frontend</span
-          > development.
+         {t("home.hello")}
         </p>
       </div>
       <div class="flex justify-start gap-2 pt-3 md:pt-6">
         <a
           target="_blank"
-          href="https://github.com/gothsec"
+          href="https://github.com/melissa98m"
           aria-label="GitHub"
           class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
@@ -45,7 +43,7 @@ import SkillsList from "../React/SkillsList.tsx";
         </a>
         <a
           target="_blank"
-          href="https://linkedin.com/in/hernandezoscar-dev"
+          href="https://linkedin.com/in/melissamangione"
           aria-label="LinkedIn"
           class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
@@ -62,7 +60,7 @@ import SkillsList from "../React/SkillsList.tsx";
         </a>
         <a
           target="_blank"
-          href="https://mail.google.com/mail/?view=cm&fs=1&to=oscarandreshernandezpineda@gmail.com&su=Hey%20Oscar!"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=melissa.mangione@gmail.com&su=Bonjoury%20Melissa!"
           aria-label="Email"
           class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
@@ -84,7 +82,7 @@ import SkillsList from "../React/SkillsList.tsx";
     <LogoWall />
 
     <div class="flex flex-col lg:flex-row items-center gap-8">
-      <SkillsList client:load />
+     <SkillsList client:load {t} {lang} />
       <div
         class="flex justify-center md:w-full md:h-[292px] size-[290px] pt-3 md:pt-9 md:ml-16"
       >

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Remplace l’URL si tu as un domaine
+# Sitemap: https://mon-domaine.tld/sitemap.xml

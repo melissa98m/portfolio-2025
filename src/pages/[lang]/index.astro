@@ -1,0 +1,29 @@
+---
+import { LOCALES, type Locale } from "@/i18n/config";
+import { getI18n } from "@/i18n";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Home from "@/components/home.astro";
+import Projects from "@/components/projects.astro";
+import Contact from "@/components/contact.astro";
+import Footer from "@/components/footer.astro";
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const { t, dict } = getI18n(lang);
+
+const title = dict.meta.title;
+const description = dict.meta.description;
+const ogImg = "/og-cover.png"; // place-le dans /public si tu l'as
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+---
+<Layout {title} {description} {lang} {url} ogImage={ogImg}>
+  <Nav {lang} {t} />
+  <Home {lang} {t} />
+  <Projects {lang} {t} />
+  <Contact {lang} {t} />
+  <Footer {lang} {t} />
+</Layout>
