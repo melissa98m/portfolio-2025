@@ -125,7 +125,7 @@ const otherLang = lang === "fr" ? "en" : "fr";
 
   function updateNav() {
     if (window.scrollY > 0) {
-      nav?.classList.add("scrolling");
+      nav && nav.classList.add("scrolling");
 
       const scrollProgress = Math.min(window.scrollY / maxScroll, 1);
       const easeProgress = 1 - Math.pow(1 - scrollProgress, 4);
@@ -134,12 +134,14 @@ const otherLang = lang === "fr" ? "en" : "fr";
       const maxWidth = window.innerWidth * 0.8;
       const currentWidth = maxWidth - (maxWidth - minWidth) * easeProgress;
 
-      if (window.innerWidth >= 768) {
-        nav?.style.setProperty("width", `${currentWidth}px`);
+      if (window.innerWidth >= 768 && nav) {
+        nav.style.setProperty("width", currentWidth + "px");
       }
     } else {
-      nav?.classList.remove("scrolling");
-      nav?.style.setProperty("width", "80%");
+      if (nav) {
+        nav.classList.remove("scrolling");
+        nav.style.setProperty("width", "80%");
+      }
     }
     rafId = null;
   }
@@ -147,7 +149,7 @@ const otherLang = lang === "fr" ? "en" : "fr";
   window.addEventListener(
     "scroll",
     () => {
-      if (!rafId) {
+      if (rafId == null) {
         rafId = requestAnimationFrame(updateNav);
       }
     },
@@ -160,13 +162,17 @@ const otherLang = lang === "fr" ? "en" : "fr";
   // Smooth scroll
   navLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
-      const url = new URL((e.currentTarget as HTMLAnchorElement).href);
+      const current = e.currentTarget;
+      if (!(current instanceof HTMLAnchorElement)) return;
+
+      const url = new URL(current.href);
       const targetId = url.hash.replace("#", "");
       const target = document.getElementById(targetId);
+
       if (target && url.pathname === window.location.pathname) {
         e.preventDefault();
         target.scrollIntoView({ behavior: "smooth" });
-        history.replaceState(null, "", `#${targetId}`);
+        history.replaceState(null, "", "#" + targetId);
       }
     });
   });
@@ -180,6 +186,8 @@ const otherLang = lang === "fr" ? "en" : "fr";
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const id = entry.target.getAttribute("id");
+        if (!id) return;
+
         navLinks.forEach((link) => {
           const linkHash = new URL(link.href).hash.replace("#", "");
           link.classList.toggle("active", linkHash === id);
@@ -190,7 +198,6 @@ const otherLang = lang === "fr" ? "en" : "fr";
     sections.forEach((section) => observer.observe(section));
   });
 </script>
-
 <style>
   @media (max-width: 767px) {
     body {

@@ -4,8 +4,8 @@ import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
 import type { Category } from "../React/SkillsList";
 
-const { lang = "fr", t } = Astro.props as {
-  lang: "fr" | "en";
+const { lang: _lang = "fr", t } = Astro.props as {
+  lang?: "fr" | "en";
   t: (k: string) => string;
 };
 

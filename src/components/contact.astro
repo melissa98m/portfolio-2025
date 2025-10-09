@@ -1,6 +1,6 @@
 ---
-const { lang = "fr", t } = Astro.props as {
-  lang: "fr" | "en";
+const { lang: _lang = "fr", t } = Astro.props as {
+  lang?: "fr" | "en";
   t: (k: string) => string;
 };
 const cvPath = "/CV_MANGIONE_MELISSA.pdf";

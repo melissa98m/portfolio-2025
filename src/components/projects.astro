@@ -5,11 +5,10 @@ import gowithdog from "../../public/gowithdog.png";
 import weeb from "../../public/weeb.png";
 import velez from "../../public/velez.png";
 
-const { lang = "fr", t } = Astro.props as {
-  lang: "fr" | "en";
+const { lang: _lang = "fr", t } = Astro.props as {
+  lang?: "fr" | "en";
   t: (k: string) => string;
 };
-
 interface Project {
   title: string;
   image: ImageMetadata;

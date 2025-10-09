@@ -2,7 +2,7 @@
 ---
 <style>
   :root {
-    --cursor-base: var(--sec);    
+    --cursor-base: var(--sec);
     --cursor-active: #8151f0;
   }
   @supports (color: color-mix(in oklab, white 50%, black)) {
@@ -95,19 +95,19 @@
   <div class="inner"></div>
 </div>
 
-<script>
-  if (typeof window !== 'undefined') {
-    const root = document.documentElement;
-    const wrap = document.getElementById('cursor');
-    const outer = wrap?.querySelector('.outer');
+<script is:inline>
+  (function () {
+    const initCustomCursor = () => {
+      // Don’t run on touch / coarse pointers
+      const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+      if (mq.matches) return;
 
-    // enables native cursor masking
-    root.classList.add('custom-cursor-enabled');
+      const root = document.documentElement;
+      const wrap = document.getElementById('cursor');
+      if (!(wrap instanceof HTMLElement)) return;
 
-    if (wrap && outer) {
-      let shown = false;
-      const pos = { x: innerWidth / 2, y: innerHeight / 2 };
-      const tgt = { x: pos.x, y: pos.y };
+      const outer = wrap.querySelector('.outer');
+      if (!(outer instanceof HTMLElement)) return;
 
       // selectors considered “clickable”
       const CLICKABLE = [
@@ -117,17 +117,35 @@
         '.cursor-pointer','[data-clickable]','[onclick]','[tabindex="0"]'
       ].join(',');
 
-      const isClickable = (el) => !!el?.closest?.(CLICKABLE);
+      const isClickable = (el) => !!(el && el.closest && el.closest(CLICKABLE));
 
-      // move and color the cursor
-      addEventListener('pointermove', (e) => {
-        tgt.x = e.clientX; tgt.y = e.clientY;
+      root.classList.add('custom-cursor-enabled');
 
-        if (!shown) { wrap.style.display = 'block'; shown = true; }
+      let shown = false;
+      const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      const tgt = { x: pos.x, y: pos.y };
 
-        const el = document.elementFromPoint(e.clientX, e.clientY);
+      const reveal = () => {
+        if (!shown) {
+          wrap.style.display = 'block';
+          shown = true;
+        }
+      };
+
+      // Move + clickable state
+      const onPointerMove = (e) => {
+        tgt.x = e.clientX;
+        tgt.y = e.clientY;
+        reveal();
+        const el = document.elementFromPoint(tgt.x, tgt.y);
         wrap.classList.toggle('is-clickable', isClickable(el));
-      }, { passive: true });
+      };
+
+      // Fallback show if no movement yet
+      const showFallback = window.setTimeout(reveal, 120);
+
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('mousemove', onPointerMove, { passive: true }); // fallback
 
       // smooth tracking with inertia
       const speed = 0.18;
@@ -139,12 +157,26 @@
       };
       requestAnimationFrame(tick);
 
-      // Feedback click
-      addEventListener('mousedown', () => { outer.style.transform = 'scale(0.95)'; });
-      addEventListener('mouseup', () => { outer.style.transform = ''; });
+      // Click feedback
+      window.addEventListener('mousedown', () => { outer.style.transform = 'scale(0.95)'; });
+      window.addEventListener('mouseup', () => { outer.style.transform = ''; });
 
-      addEventListener('blur',  () => { wrap.style.display = 'none'; });
-      addEventListener('focus', () => { if (shown) wrap.style.display = 'block'; });
+      // Hide/Show on window focus
+      window.addEventListener('blur',  () => { wrap.style.display = 'none'; });
+      window.addEventListener('focus', () => { if (shown) wrap.style.display = 'block'; });
+
+      // Cleanup on hot reload (dev)
+      window.addEventListener('astro:after-swap', () => {
+        window.clearTimeout(showFallback);
+      });
+    };
+
+    if (typeof window !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCustomCursor, { once: true });
+      } else {
+        initCustomCursor();
+      }
     }
-  }
+  })();
 </script>
