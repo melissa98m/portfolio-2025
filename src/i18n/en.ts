@@ -14,6 +14,10 @@ export default {
         headline: "Fullstack Developer",
         subheadline: "I build fast and accessible web experiences.",
         cta: "See my projects",
+        cv: {
+            view: "View my CV",
+            download: "Download",
+        },
     },
     projects: {
         kicker: "My work",
@@ -59,8 +63,8 @@ export default {
         title: "What I do",
         categories: {
             web: "Web Development",
-            mobile: "Mobile Development",
-            design: "UI/UX Design & Prototyping",
+            ecommerce: "E-shop",
+            project: "Project Management",
         },
         items: {
             web: {
@@ -68,14 +72,14 @@ export default {
                 landing: "Landing pages and business websites",
                 portfolio: "Portfolio websites",
             },
-            mobile: {
-                pwa: "Mobile-friendly web apps",
-                reactNative: "React Native mobile apps",
+            ecommerce: {
+                commerce: "Mobile-friendly e-shop",
+                cms: "Create e-shop with Magento and Prestashop",
             },
-            design: {
-                ui: "UI design with Figma & Canva",
-                ux: "UX research & improvements",
-                proto: "Prototyping for websites & mobile apps",
+            project: {
+                gestion: "Project management with Trello & Jira",
+                redaction: "Drafting of specifications, technical file",
+                ci: "Using Docker and GitHub Actions to automate a project",
             },
         },
     },

@@ -2,14 +2,48 @@
 import LetterGlitch from "../React/LetterGlitch.tsx";
 import LogoWall from "../components/logoWall.astro";
 import SkillsList from "../React/SkillsList.tsx";
-const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) => string };
+import type { Category } from "../React/SkillsList";
+
+const { lang = "fr", t } = Astro.props as {
+  lang: "fr" | "en";
+  t: (k: string) => string;
+};
+
+
+const categories: Category[] = [
+  {
+    id: "web",
+    title: t("skills.categories.web"),
+    items: [
+      t("skills.items.web.spa"),
+      t("skills.items.web.landing"),
+      t("skills.items.web.portfolio"),
+    ],
+  },
+  {
+    id: "ecommerce",
+    title: t("skills.categories.ecommerce"),
+    items: [t("skills.items.ecommerce.commerce"), t("skills.items.ecommerce.cms")],
+  },
+  {
+    id: "project",
+    title: t("skills.categories.project"),
+    items: [
+      t("skills.items.project.gestion"),
+      t("skills.items.project.redaction"),
+      t("skills.items.project.ci"),
+    ],
+  },
+];
+
+const skillsTitle = t("skills.title");
 ---
 
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
   <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
     <div class="text-left space-y-4">
       <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
-       {t("home.hello")}
+        {t("home.hello")}
       </p>
       <div
         class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
@@ -20,7 +54,7 @@ const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) =>
           {t("home.hello")}
         </h1>
         <p class="text-md md:text-2xl text-[var(--white-icon)]">
-         {t("home.hello")}
+          {t("home.hello")}
         </p>
       </div>
       <div class="flex justify-start gap-2 pt-3 md:pt-6">
@@ -28,7 +62,7 @@ const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) =>
           target="_blank"
           href="https://github.com/melissa98m"
           aria-label="GitHub"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+          class="text-[var(--white-icon)] hover:text-violet-400 transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +79,7 @@ const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) =>
           target="_blank"
           href="https://linkedin.com/in/melissamangione"
           aria-label="LinkedIn"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+          class="text-[var(--white-icon)]  hover:text-violet-400 transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +96,7 @@ const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) =>
           target="_blank"
           href="https://mail.google.com/mail/?view=cm&fs=1&to=melissa.mangione@gmail.com&su=Bonjoury%20Melissa!"
           aria-label="Email"
-          class="text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
+          class="text-[var(--white-icon)]  hover:text-violet-400 transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +116,7 @@ const { lang = "fr", t } = Astro.props as { lang: "fr" | "en"; t: (k: string) =>
     <LogoWall />
 
     <div class="flex flex-col lg:flex-row items-center gap-8">
-     <SkillsList client:load {t} {lang} />
+       <SkillsList client:load title={skillsTitle} categories={categories} />
       <div
         class="flex justify-center md:w-full md:h-[292px] size-[290px] pt-3 md:pt-9 md:ml-16"
       >

@@ -43,7 +43,7 @@ const otherLang = lang === "fr" ? "en" : "fr";
             <li class="flex-1 md:flex-none">
               <a
                 href={item.href}
-                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base relative group"
+                class="flex flex-col items-center gap-1 text-[var(--white-icon)] hover:text-violet-400 transition-colors text-xs md:text-base relative group"
               >
                 <div class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-all duration-300 scale-0 opacity-0 bg-[#A9FF5B] nav-indicator hidden md:block" />
                 <span class="md:hidden flex items-center justify-center w-6 h-6">
@@ -61,7 +61,7 @@ const otherLang = lang === "fr" ? "en" : "fr";
           <a
             href={`/${otherLang}`}
             aria-label={t("nav.language")}
-            class="px-3 py-1 rounded border border-white/10 hover:bg-white/5 transition text-xs md:text-sm"
+            class="px-3 py-1 rounded border text-violet-500 border-white/10 hover:bg-white/5 hover:text-violet-600 transition text-xs md:text-sm"
           >
             {otherLang.toUpperCase()}
           </a>

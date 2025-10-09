@@ -14,6 +14,10 @@ export default {
         headline: "Développeur Fullstack",
         subheadline: "Je conçois des expériences web rapides et accessibles.",
         cta: "Voir mes projets",
+        cv: {
+            view: "Voir mon CV",
+            download: "Télécharger",
+        },
     },
     projects: {
         kicker: "Mes travaux",
@@ -57,8 +61,8 @@ export default {
         title: "Ce que je fais",
         categories: {
             web: "Développement Web",
-            mobile: "Développement Mobile",
-            design: "Design UI/UX & Prototypage",
+            ecommerce: "E-commerce",
+            project: "Gestion de projet",
         },
         items: {
             web: {
@@ -66,14 +70,14 @@ export default {
                 landing: "Landing pages et sites vitrines",
                 portfolio: "Sites portfolio",
             },
-            mobile: {
-                pwa: "Applications web adaptées au mobile",
-                reactNative: "Applications mobiles React Native",
+           ecommerce: {
+                commerce: "E-commerce adaptées au mobile",
+                cms: "Création de e-commerce avec Magento et Prestashop",
             },
-            design: {
-                ui: "Design d’interface avec Figma & Canva",
-                ux: "Recherche UX & améliorations",
-                proto: "Prototypage pour sites & apps mobiles",
+            project: {
+                gestion: "Gestion de projet avec Trello/Jira",
+                redaction: "Redaction de cahier des charge, dossier technique",
+                ci: "Utilisation de Docker, et de Github Actions pour automatisé un projet",
             },
         },
     },
