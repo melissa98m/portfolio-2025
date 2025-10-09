@@ -11,8 +11,8 @@ export default {
     },
     home: {
         hello: "Bonjour, je suis Mélissa Mangione",
-        headline: "Développeur Fullstack",
-        subheadline: "Je conçois des expériences web rapides et accessibles.",
+        headline: "Développeuse Fullstack",
+        subheadline: "Disponible pour une alternance : e-commerce clé en main (Magento/PrestaShop) ou app sur-mesure (Laravel/Symfony), orientée performance et accessibilité.",
         cta: "Voir mes projets",
         cv: {
             view: "Voir mon CV",
@@ -76,7 +76,7 @@ export default {
             },
             project: {
                 gestion: "Gestion de projet avec Trello/Jira",
-                redaction: "Redaction de cahier des charge, dossier technique",
+                redaction: "Redaction de cahier des charges, dossier technique",
                 ci: "Utilisation de Docker, et de Github Actions pour automatisé un projet",
             },
         },
