@@ -1,4 +1,5 @@
 ---
+
 ---
 <style>
   :root {
@@ -21,7 +22,7 @@
     position: fixed; left: 0; top: 0;
     z-index: 9999;
     user-select: none;
-    display: none; /* revealed in the first movement */
+    display: none;
     will-change: transform;
   }
 
@@ -117,6 +118,7 @@
         '.cursor-pointer','[data-clickable]','[onclick]','[tabindex="0"]'
       ].join(',');
 
+      /** @param {Element|null} el */
       const isClickable = (el) => !!(el && el.closest && el.closest(CLICKABLE));
 
       root.classList.add('custom-cursor-enabled');
