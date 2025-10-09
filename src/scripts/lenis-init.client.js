@@ -5,7 +5,7 @@ export default async function initLenis() {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return;
   }
-  const { default: Lenis } = await import('@studio-freight/lenis');
+  const { default: Lenis } = await import('lenis');
 
   const lenis = new Lenis({
     duration: 1.1,

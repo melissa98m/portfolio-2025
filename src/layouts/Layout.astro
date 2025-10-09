@@ -38,7 +38,7 @@ import CustomCursor from "../components/CustomCursor.astro";
     <CustomCursor />
     <slot />
     <script type="module">
-      import initLenis from "/src/scripts/lenis-init.client.js";s
+      import initLenis from "/src/scripts/lenis-init.client.js";
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => initLenis(), {
           once: true,
