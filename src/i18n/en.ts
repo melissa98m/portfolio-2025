@@ -12,7 +12,8 @@ export default {
     home: {
         hello: "Hi, I'm Mélissa Mangione",
         headline: "Fullstack Developer",
-        subheadline: "Available for work-study programs: turnkey e-commerce (Magento/PrestaShop) or custom app (Laravel/Symfony), focused on performance and accessibility.",
+        subheadline1: "Available for work-study programs: ",
+        subheadline: "turnkey e-commerce (Magento/PrestaShop) or custom app (Laravel/Symfony), focused on performance and accessibility.",
         cta: "See my projects",
         cv: {
             view: "View my CV",

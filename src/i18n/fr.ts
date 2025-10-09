@@ -12,7 +12,8 @@ export default {
     home: {
         hello: "Bonjour, je suis Mélissa Mangione",
         headline: "Développeuse Fullstack",
-        subheadline: "Disponible pour une alternance : e-commerce clé en main (Magento/PrestaShop) ou app sur-mesure (Laravel/Symfony), orientée performance et accessibilité.",
+        subheadline1: "Disponible pour une alternance: ",
+        subheadline: "e-commerce clé en main (Magento/PrestaShop) ou app sur-mesure (Laravel/Symfony), orientée performance et accessibilité.",
         cta: "Voir mes projets",
         cv: {
             view: "Voir mon CV",

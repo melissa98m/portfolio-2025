@@ -40,21 +40,21 @@ const skillsTitle = t("skills.title");
 ---
 
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
-  <div class="max-w-4xl mx-auto space-y-8 md:py-36 pb-14">
+  <div class="max-w-5xl mx-auto space-y-8 md:py-36 pb-14">
     <div class="text-left space-y-4">
-      <p class="text-md md:text-lg text-[var(--white-icon)] shiny-white">
+      <p class="text-md md:text-lg text-[var(--sec)] mb-2 shiny-sec">
         {t("home.headline")}
       </p>
       <div
         class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
       >
         <h1
-          class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none"
+          class="text-[var(--white)] text-4xl md:text-5xl font-medium text-pretty leading-none"
         >
           {t("home.hello")}
         </h1>
         <p class="text-md md:text-2xl text-[var(--white-icon)]">
-          {t("home.subheadline")}
+          <span class="bg-violet-500">{t("home.subheadline1")} </span>{t("home.subheadline")}
         </p>
       </div>
       <div class="flex justify-start gap-2 pt-3 md:pt-6">
@@ -140,7 +140,7 @@ const skillsTitle = t("skills.title");
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: shine 3s linear infinite;
+    animation: shine 4s linear infinite;
   }
 
   @keyframes shine {
