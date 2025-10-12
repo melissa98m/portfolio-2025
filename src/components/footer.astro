@@ -5,9 +5,14 @@ const { lang = "fr", t } = Astro.props as {
   t: (k: string) => string;
 };
 
+const ariaLabel = t("likeButton.aria");
+const likeSingular = t("likeButton.likeSingular");
+const likePlural = t("likeButton.likePlural");
+
 // Locale Spotify
 const spotifyLocale = lang === "fr" ? "fr_FR" : "en_US";
-const myPlaylistUrl = "https://open.spotify.com/playlist/07CXHxXMoViPlyh8xQSyhY?si=df171bbb6e704803"; 
+const myPlaylistUrl =
+  "https://open.spotify.com/playlist/07CXHxXMoViPlyh8xQSyhY?si=df171bbb6e704803";
 const embedUrl = myPlaylistUrl.replace(
   "open.spotify.com/playlist",
   "open.spotify.com/embed/playlist"
@@ -50,7 +55,12 @@ const embedUrl = myPlaylistUrl.replace(
             ))
           }
         </div>
-        <LikeButton client:load {t} {lang} />
+        <LikeButton
+          ariaLabel={ariaLabel}
+          likeSingular={likeSingular}
+          likePlural={likePlural}
+          client:load
+        />
       </div>
 
       <div class="flex flex-col items-center space-y-6">
@@ -112,7 +122,13 @@ const embedUrl = myPlaylistUrl.replace(
         <!-- Conformément à la licence MIT, merci de conserver la notice de copyright -->
         <span class="block sm:inline">
           Copyright © 2025
-          <a href="https://github.com/melissa98m/" target="_blank" class="text-violet-400 hover:text-white"> Mélissa Mangione</a>.
+          <a
+            href="https://github.com/melissa98m/"
+            target="_blank"
+            class="text-violet-400 hover:text-white"
+          >
+            Mélissa Mangione</a
+          >.
           {t("footer.rights")}
         </span>
       </p>

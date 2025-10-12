@@ -72,13 +72,13 @@ export default {
                 portfolio: "Sites portfolio",
             },
            ecommerce: {
-                commerce: "E-commerce adaptées au mobile",
+                commerce: "E-commerce adaptés au mobile",
                 cms: "Création de e-commerce avec Magento et Prestashop",
             },
             project: {
                 gestion: "Gestion de projet avec Trello/Jira",
                 redaction: "Redaction de cahier des charges, dossier technique",
-                ci: "Utilisation de Docker, et de Github Actions pour automatisé un projet",
+                ci: "Utilisation de Docker, et de Github Actions pour automatiser un projet",
             },
         },
     },
