@@ -149,108 +149,109 @@ const cvPath = "/CV_MANGIONE_MELISSA.pdf";
 <script type="module" is:inline>
   const form = document.getElementById("contact-form");
   const btn = document.getElementById("contact-submit");
-   const errors = {
-    from_name: document.querySelector('[data-error="from_name"]'),
-    reply_to: document.querySelector('[data-error="reply_to"]'),
-    message: document.querySelector('[data-error="message"]'),
-  };
-
-  const ds = form.dataset;
-  const labels = {
-  nameRequired: ds.nameRequired,
-  nameShort: ds.nameShort,
-  emailRequired: ds.emailRequired,
-  emailInvalid: ds.emailInvalid,
-  messageRequired: ds.messageRequired,
-  messageShort: ds.messageShort,
-  sent: ds.sent,
-  failed: ds.failed,
-};
-
-  console.log(labels);
-  function showToast(msg, type = "success") {
-    const el = document.createElement("div");
-    el.className = `toast ${type === "success" ? "toast-success" : "toast-error"}`;
-    el.textContent = msg;
-    document.body.appendChild(el);
-    setTimeout(() => { el.remove(); }, 3500);
-  }
-
-  function setFieldError(name, msg) {
-    if (errors[name]) errors[name].textContent = msg || "";
-    const field = form.elements[name];
-    if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
-  }
-
-  function validate() {
-    let ok = true;
-
-    // reset
-    setFieldError("from_name", "");
-    setFieldError("reply_to", "");
-    setFieldError("message", "");
-
-    const name = form.from_name.value.trim();
-    const email = form.reply_to.value.trim();
-    const message = form.message.value.trim();
-
-    if (!name) { setFieldError("from_name", labels.nameRequired); ok = false; }
-    else if (name.length < 2) { setFieldError("from_name", labels.nameShort); ok = false; }
-
-    if (!email) { setFieldError("reply_to", labels.emailRequired); ok = false; }
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setFieldError("reply_to", labels.emailInvalid); ok = false; }
-
-    if (!message) { setFieldError("message", labels.messageRequired); ok = false; }
-    else if (message.length < 10) { setFieldError("message", labels.messageShort); ok = false; }
-
-    return ok;
-  }
-
-  // live validation (blur)
-  ["from_name", "reply_to", "message"].forEach((n) => {
-    const el = form.elements[n];
-    if (el) {
-      el.addEventListener("blur", validate);
-      el.addEventListener("input", () => setFieldError(n, "")); // clear on typing
-    }
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    const fd = new FormData(form);
-    // garde le honeypot si un bot le remplit
-    const payload = {
-      from_name: fd.get("from_name"),
-      reply_to: fd.get("reply_to"),
-      message: fd.get("message"),
-      company: fd.get("company") || "",
+  if (!form || !btn) {
+    console.warn("[contact] form or button not found");
+  } else {
+    const errors = {
+      from_name: document.querySelector('[data-error="from_name"]'),
+      reply_to: document.querySelector('[data-error="reply_to"]'),
+      message: document.querySelector('[data-error="message"]'),
     };
 
-    btn.disabled = true; btn.style.opacity = "0.6";
-    try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        headers: { "content-type": "application/json", "accept": "application/json" },
-        body: JSON.stringify(payload),
+    const ds = form.dataset;
+    const labels = {
+      nameRequired: ds.nameRequired,
+      nameShort: ds.nameShort,
+      emailRequired: ds.emailRequired,
+      emailInvalid: ds.emailInvalid,
+      messageRequired: ds.messageRequired,
+      messageShort: ds.messageShort,
+      sent: ds.sent,
+      failed: ds.failed,
+    };
+
+    function showToast(msg, type = "success") {
+      const el = document.createElement("div");
+      el.className = `toast ${type === "success" ? "toast-success" : "toast-error"}`;
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => { el.remove(); }, 3500);
+    }
+
+    function setFieldError(name, msg) {
+      if (errors[name]) errors[name].textContent = msg || "";
+      const field = form.elements[name];
+      if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
+    }
+
+    function validate() {
+      let ok = true;
+
+      // reset
+      setFieldError("from_name", "");
+      setFieldError("reply_to", "");
+      setFieldError("message", "");
+
+      const name = form.from_name.value.trim();
+      const email = form.reply_to.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name) { setFieldError("from_name", labels.nameRequired); ok = false; }
+      else if (name.length < 2) { setFieldError("from_name", labels.nameShort); ok = false; }
+
+      if (!email) { setFieldError("reply_to", labels.emailRequired); ok = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setFieldError("reply_to", labels.emailInvalid); ok = false; }
+
+      if (!message) { setFieldError("message", labels.messageRequired); ok = false; }
+      else if (message.length < 10) { setFieldError("message", labels.messageShort); ok = false; }
+
+      return ok;
+    }
+
+    // live validation (blur)
+    ["from_name", "reply_to", "message"].forEach((n) => {
+      const el = form.elements[n];
+      if (el) {
+        el.addEventListener("blur", validate);
+        el.addEventListener("input", () => setFieldError(n, "")); // clear on typing
+      }
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const fd = new FormData(form);
+      const qs = new URLSearchParams({
+        from_name: String(fd.get("from_name") || ""),
+        reply_to: String(fd.get("reply_to") || ""),
+        message: String(fd.get("message") || ""),
+        company: String(fd.get("company") || "")
       });
 
-      if (res.ok) {
-        form.reset();
-        showToast(`✅ ${labels.sent}`, "success");
-      } else {
-        let data = {};
-        try { data = await res.json(); } catch {}
-        if (data && data.errors) {
-          Object.entries(data.errors).forEach(([k, v]) => setFieldError(k, String(v)));
+      btn.disabled = true; btn.style.opacity = "0.6";
+      try {
+        const res = await fetch(`${form.action}?${qs.toString()}`, {
+          method: "POST",
+          body: fd   // don't fix content-type: navigateur do this
+        });
+
+        if (res.ok) {
+          form.reset();
+          showToast(`✅ ${labels.sent}`, "success");
+        } else {
+          let data = {};
+          try { data = await res.json(); } catch {}
+          if (data && data.errors) {
+            Object.entries(data.errors).forEach(([k, v]) => setFieldError(k, String(v)));
+          }
+          showToast(`❌ ${labels.failed}`, "error");
         }
+      } catch (err) {
         showToast(`❌ ${labels.failed}`, "error");
+      } finally {
+        btn.disabled = false; btn.style.opacity = "";
       }
-    } catch (err) {
-      showToast(`❌ ${labels.failed}`, "error");
-    } finally {
-      btn.disabled = false; btn.style.opacity = "";
-    }
-  });
+    });
+  }
 </script>
