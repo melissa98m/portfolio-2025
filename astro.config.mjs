@@ -1,10 +1,9 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-
 import react from "@astrojs/react";
+import vercel from "@astrojs/vercel/serverless"; 
 
-// https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
   vite: {
@@ -15,7 +14,10 @@ export default defineConfig({
       },
     },
   },
-  output: "static",
+  output: "server",                    
+  adapter: vercel({
+    // includeFiles: [],               // (optionnel) si je packager des fichiers
+  }),
   build: {
     inlineStylesheets: "auto",
   },
