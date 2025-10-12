@@ -14,244 +14,382 @@ const cvPath = "/CV_MANGIONE_MELISSA.pdf";
     <h3 class="text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
       {t("contact.title")}
     </h3>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Colonne gauche -->
       <div class="text-[var(--white-icon)]">
         <p class="mb-4">
           {t("contact.blurb")}
         </p>
+
         <div class="flex items-center gap-2">
           <span>{t("contact.locationLabel")}</span>
           <span class="text-[var(--white)]">{t("contact.locationValue")}</span>
         </div>
 
-        <!-- Button CV -->
+        <!-- Boutons CV -->
         <div class="mt-4 flex items-center gap-3">
+          <!-- Ouvrir la modale -->
           <a
             href={cvPath}
-            target="_blank"
+            data-open-cv
             rel="noopener noreferrer"
             class="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] text-violet-400 hover:text-violet-600 hover:bg-[var(--white-icon-tr)] transition duration-300 ease-in-out"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-5 h-5"
-            >
-              <path
-                d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-2.5A2.5 2.5 0 1 0 12 9a2.5 2.5 0 0 0 0 5Z"
-              ></path>
+            <!-- icône œil -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+              <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7C21.27 8.11 17 5 12 5Zm0 10a3 3 0 1 1 .001-6.001A3 3 0 0 1 12 15Z"/>
             </svg>
             <span class="text-sm md:text-base">{t("home.cv.view")}</span>
           </a>
+
+          <!-- Télécharger direct -->
           <a
             href={cvPath}
             download
-            class="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c]  text-violet-400 hover:text-violet-600 hover:bg-[var(--white-icon-tr)] transition duration-300 ease-in-out"
+            class="flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--white-icon-tr)] bg-[#1414149c] text-violet-400 hover:text-violet-600 hover:bg-[var(--white-icon-tr)] transition duration-300 ease-in-out"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-5 h-5"
-            >
-              <path
-                d="M11 2h2v10.586l2.293-2.293 1.414 1.414L12 16.414l-4.707-4.707 1.414-1.414L11 12.586V2ZM5 18h14v2H5v-2Z"
-              ></path>
+            <!-- flèche -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+              <path d="M11 2h2v10.586l2.293-2.293 1.414 1.414L12 16.414l-4.707-4.707 1.414-1.414L11 12.586V2ZM5 18h14v2H5v-2Z"/>
             </svg>
             <span class="text-sm md:text-base">{t("home.cv.download")}</span>
           </a>
         </div>
       </div>
 
-     <div>
-  <form
-    id="contact-form"
-    action="/api/contact"
-    method="POST"
-    class="flex flex-col gap-4"
-    novalidate
-    data-name-required={t('contact.validation.nameRequired')}
-  data-name-short={t('contact.validation.nameShort')}
-  data-email-required={t('contact.validation.emailRequired')}
-  data-email-invalid={t('contact.validation.emailInvalid')}
-  data-message-required={t('contact.validation.messageRequired')}
-  data-message-short={t('contact.validation.messageShort')}
-  data-sent={t('contact.success')}
-  data-failed={t('contact.error')}
-  >
-    <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+      <!-- Colonne droite : formulaire -->
+      <div>
+        <form
+          id="contact-form"
+          action="/api/contact"
+          method="POST"
+          class="flex flex-col gap-4"
+          novalidate
+          data-name-required={t("contact.validation.nameRequired")}
+          data-name-short={t("contact.validation.nameShort")}
+          data-email-required={t("contact.validation.emailRequired")}
+          data-email-invalid={t("contact.validation.emailInvalid")}
+          data-message-required={t("contact.validation.messageRequired")}
+          data-message-short={t("contact.validation.messageShort")}
+          data-sent={t("contact.success")}
+          data-failed={t("contact.error")}
+        >
+          <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <div class="flex flex-col gap-1">
-      <input
-        type="text"
-        name="from_name"
-        placeholder={t("contact.name")}
-        required
-        minlength="2"
-        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-        aria-invalid="false"
-      />
-      <p class="text-red-400 text-sm min-h-5" data-error="from_name"></p>
+          <div class="flex flex-col gap-1">
+            <input
+              type="text"
+              name="from_name"
+              placeholder={t("contact.name")}
+              required
+              minlength="2"
+              class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+              aria-invalid="false"
+            />
+            <p class="text-red-400 text-sm min-h-5" data-error="from_name"></p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <input
+              type="email"
+              name="reply_to"
+              placeholder={t("contact.email")}
+              required
+              class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+              aria-invalid="false"
+            />
+            <p class="text-red-400 text-sm min-h-5" data-error="reply_to"></p>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <textarea
+              name="message"
+              placeholder={t("contact.message")}
+              rows="6"
+              required
+              minlength="10"
+              class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
+              aria-invalid="false"
+            ></textarea>
+            <p class="text-red-400 text-sm min-h-5" data-error="message"></p>
+          </div>
+
+          <button
+            id="contact-submit"
+            type="submit"
+            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
+          >
+            {t("contact.send")}
+          </button>
+        </form>
+
+        <div id="form-message" class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg">
+          ✅ {t("contact.success")}
+        </div>
+      </div>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <input
-        type="email"
-        name="reply_to"
-        placeholder={t("contact.email")}
-        required
-        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-        aria-invalid="false"
-      />
-      <p class="text-red-400 text-sm min-h-5" data-error="reply_to"></p>
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <textarea
-        name="message"
-        placeholder={t("contact.message")}
-        rows="6"
-        required
-        minlength="10"
-        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
-        aria-invalid="false"
-      ></textarea>
-      <p class="text-red-400 text-sm min-h-5" data-error="message"></p>
-    </div>
-
-    <button
-      id="contact-submit"
-      type="submit"
-      class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
-    >
-      {t("contact.send")}
-    </button>
-  </form>
-
-  <div id="form-message" class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg">
-    ✅ {t("contact.success")}
-  </div>
-</div>
-
-
-<style is:inline>
-  .toast {
-    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
-    padding: 12px 16px; border-radius: 8px; background: rgba(20,20,20,.95);
-    color: #fff; border: 1px solid rgba(255,255,255,.15); z-index: 9999;
-    box-shadow: 0 6px 24px rgba(0,0,0,.35);
-  }
-  .toast-success { background: #1b4d2d; }
-  .toast-error { background: #5b1b1b; }
-</style>
-
-<script type="module" is:inline>
-  const form = document.getElementById("contact-form");
-  const btn = document.getElementById("contact-submit");
-  if (!form || !btn) {
-    console.warn("[contact] form or button not found");
-  } else {
-    const errors = {
-      from_name: document.querySelector('[data-error="from_name"]'),
-      reply_to: document.querySelector('[data-error="reply_to"]'),
-      message: document.querySelector('[data-error="message"]'),
-    };
-
-    const ds = form.dataset;
-    const labels = {
-      nameRequired: ds.nameRequired,
-      nameShort: ds.nameShort,
-      emailRequired: ds.emailRequired,
-      emailInvalid: ds.emailInvalid,
-      messageRequired: ds.messageRequired,
-      messageShort: ds.messageShort,
-      sent: ds.sent,
-      failed: ds.failed,
-    };
-
-    function showToast(msg, type = "success") {
-      const el = document.createElement("div");
-      el.className = `toast ${type === "success" ? "toast-success" : "toast-error"}`;
-      el.textContent = msg;
-      document.body.appendChild(el);
-      setTimeout(() => { el.remove(); }, 3500);
-    }
-
-    function setFieldError(name, msg) {
-      if (errors[name]) errors[name].textContent = msg || "";
-      const field = form.elements[name];
-      if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
-    }
-
-    function validate() {
-      let ok = true;
-
-      // reset
-      setFieldError("from_name", "");
-      setFieldError("reply_to", "");
-      setFieldError("message", "");
-
-      const name = form.from_name.value.trim();
-      const email = form.reply_to.value.trim();
-      const message = form.message.value.trim();
-
-      if (!name) { setFieldError("from_name", labels.nameRequired); ok = false; }
-      else if (name.length < 2) { setFieldError("from_name", labels.nameShort); ok = false; }
-
-      if (!email) { setFieldError("reply_to", labels.emailRequired); ok = false; }
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setFieldError("reply_to", labels.emailInvalid); ok = false; }
-
-      if (!message) { setFieldError("message", labels.messageRequired); ok = false; }
-      else if (message.length < 10) { setFieldError("message", labels.messageShort); ok = false; }
-
-      return ok;
-    }
-
-    // live validation (blur)
-    ["from_name", "reply_to", "message"].forEach((n) => {
-      const el = form.elements[n];
-      if (el) {
-        el.addEventListener("blur", validate);
-        el.addEventListener("input", () => setFieldError(n, "")); // clear on typing
+    <style is:inline>
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: rgba(20, 20, 20, 0.95);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        z-index: 9999;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
       }
-    });
+      .toast-success { background: #1b4d2d; }
+      .toast-error   { background: #5b1b1b; }
+    </style>
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!validate()) return;
+    <!-- Script formulaire (seulement) -->
+    <script type="module" is:inline>
+      const form = document.getElementById("contact-form");
+      const btn = document.getElementById("contact-submit");
 
-      const fd = new FormData(form);
-      const qs = new URLSearchParams({
-        from_name: String(fd.get("from_name") || ""),
-        reply_to: String(fd.get("reply_to") || ""),
-        message: String(fd.get("message") || ""),
-        company: String(fd.get("company") || "")
-      });
+      if (form && btn) {
+        const errors = {
+          from_name: document.querySelector('[data-error="from_name"]'),
+          reply_to: document.querySelector('[data-error="reply_to"]'),
+          message: document.querySelector('[data-error="message"]'),
+        };
 
-      btn.disabled = true; btn.style.opacity = "0.6";
-      try {
-        const res = await fetch(`${form.action}?${qs.toString()}`, {
-          method: "POST",
-          body: fd   // don't fix content-type: navigateur do this
+        const ds = form.dataset;
+        const labels = {
+          nameRequired: ds.nameRequired,
+          nameShort: ds.nameShort,
+          emailRequired: ds.emailRequired,
+          emailInvalid: ds.emailInvalid,
+          messageRequired: ds.messageRequired,
+          messageShort: ds.messageShort,
+          sent: ds.sent,
+          failed: ds.failed,
+        };
+
+        function showToast(msg, type = "success") {
+          const el = document.createElement("div");
+          el.className = `toast ${type === "success" ? "toast-success" : "toast-error"}`;
+          el.textContent = msg;
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 3500);
+        }
+
+        function setFieldError(name, msg) {
+          if (errors[name]) errors[name].textContent = msg || "";
+          const field = form.elements[name];
+          if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
+        }
+
+        function validate() {
+          let ok = true;
+          setFieldError("from_name", "");
+          setFieldError("reply_to", "");
+          setFieldError("message", "");
+
+          const name = form.from_name.value.trim();
+          const email = form.reply_to.value.trim();
+          const message = form.message.value.trim();
+
+          if (!name) { setFieldError("from_name", labels.nameRequired); ok = false; }
+          else if (name.length < 2) { setFieldError("from_name", labels.nameShort); ok = false; }
+
+          if (!email) { setFieldError("reply_to", labels.emailRequired); ok = false; }
+          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setFieldError("reply_to", labels.emailInvalid); ok = false;
+          }
+
+          if (!message) { setFieldError("message", labels.messageRequired); ok = false; }
+          else if (message.length < 10) { setFieldError("message", labels.messageShort); ok = false; }
+
+          return ok;
+        }
+
+        ["from_name", "reply_to", "message"].forEach((n) => {
+          const el = form.elements[n];
+          if (el) {
+            el.addEventListener("blur", validate);
+            el.addEventListener("input", () => setFieldError(n, ""));
+          }
         });
 
-        if (res.ok) {
-          form.reset();
-          showToast(`✅ ${labels.sent}`, "success");
-        } else {
-          let data = {};
-          try { data = await res.json(); } catch {}
-          if (data && data.errors) {
-            Object.entries(data.errors).forEach(([k, v]) => setFieldError(k, String(v)));
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!validate()) return;
+
+          const fd = new FormData(form);
+          const qs = new URLSearchParams({
+            from_name: String(fd.get("from_name") || ""),
+            reply_to: String(fd.get("reply_to") || ""),
+            message: String(fd.get("message") || ""),
+            company: String(fd.get("company") || ""),
+          });
+
+          btn.disabled = true;
+          btn.style.opacity = "0.6";
+          try {
+            const res = await fetch(`${form.action}?${qs.toString()}`, {
+              method: "POST",
+              body: fd,
+            });
+
+            if (res.ok) {
+              form.reset();
+              showToast(`✅ ${labels.sent}`, "success");
+            } else {
+              let data = {};
+              try { data = await res.json(); } catch {}
+              if (data && data.errors) {
+                Object.entries(data.errors).forEach(([k, v]) => setFieldError(k, String(v)));
+              }
+              showToast(`❌ ${labels.failed}`, "error");
+            }
+          } catch {
+            showToast(`❌ ${labels.failed}`, "error");
+          } finally {
+            btn.disabled = false;
+            btn.style.opacity = "";
           }
-          showToast(`❌ ${labels.failed}`, "error");
-        }
-      } catch (err) {
-        showToast(`❌ ${labels.failed}`, "error");
-      } finally {
-        btn.disabled = false; btn.style.opacity = "";
+        });
+      } else {
+        console.warn("[contact] form or button not found");
       }
-    });
-  }
-</script>
+    </script>
+
+    <!-- MODAL CV -->
+    <div id="cv-modal" class="fixed inset-0 z-[1000] hidden">
+      <!-- overlay -->
+      <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+      <!-- container (pas pleine largeur) -->
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div
+          class="relative w-[92vw] max-w-[980px] h-[85vh] bg-[#0f0f0f] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+        >
+          <!-- header / controls -->
+          <div
+            class="absolute top-0 left-0 right-0 h-12 flex items-center gap-2 px-3 border-b border-white/10 bg-[#0f0f0f]/85
+                   relative z-20 pointer-events-auto"
+          >
+            <span class="text-sm text-white/80 flex-1">CV — Aperçu</span>
+            <div class="flex items-center gap-1">
+              <button type="button" data-cv-zoom="out"   class="px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">−</button>
+              <button type="button" data-cv-zoom="in"    class="px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">+</button>
+              <button type="button" data-cv-zoom="width" class="px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">Largeur</button>
+              <button type="button" data-cv-zoom="page"  class="px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">Page</button>
+              <button type="button" data-cv-download     class="px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">Télécharger</button>
+              <button type="button" data-cv-close aria-label="Fermer" class="ml-2 px-2 py-1 rounded border border-white/10 text-white/90 hover:bg-white/10">✕</button>
+            </div>
+          </div>
+
+          <!-- viewer -->
+          <div class="absolute inset-0 pt-12">
+            <!-- toolbar masquée uniquement dans la modale via #toolbar=0 -->
+            <iframe
+              id="cv-frame"
+              data-src={cvPath}
+              src={`${cvPath}#toolbar=0&zoom=100&pagemode=none&view=FitH`}
+              class="w-full h-full relative z-10"
+              title="CV"
+              style="border:0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script MODALE (après la modale) -->
+    <script type="module" is:inline>
+      const modal = document.getElementById('cv-modal');
+      const frame = document.getElementById('cv-frame');
+
+      // Ouvrir (délégation)
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[data-open-cv]');
+        if (!a) return;
+        e.preventDefault();
+        openModal();
+      });
+
+      function openModal() {
+        if (!modal) return;
+        modal.classList.remove('hidden');
+        document.documentElement.style.overflow = 'hidden';
+        setIframeZoom(100); // zoom initial 100% (+ toolbar=0 appliqué)
+      }
+
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        document.documentElement.style.overflow = '';
+      }
+
+      // Fermer en cliquant sur l’overlay
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Délégation sur l’entête pour tous les boutons
+      let zoom = 100, MIN_ZOOM = 25, MAX_ZOOM = 400;
+
+      modal?.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-cv-close],[data-cv-download],[data-cv-zoom]');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (btn.hasAttribute('data-cv-close')) return closeModal();
+
+        if (btn.hasAttribute('data-cv-download')) {
+          const url = frame?.dataset?.src || '';
+          if (!url) return;
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = url.split('/').pop() || 'CV.pdf';
+          a.rel = 'noopener';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          return;
+        }
+
+        if (btn.hasAttribute('data-cv-zoom')) {
+          const mode = btn.getAttribute('data-cv-zoom');
+          if (mode === 'in')  zoom = Math.min(MAX_ZOOM, zoom + 10);
+          else if (mode === 'out') zoom = Math.max(MIN_ZOOM, zoom - 10);
+          setIframeZoom(mode === 'in' || mode === 'out' ? zoom : mode);
+        }
+      });
+
+      // Raccourcis clavier quand la modale est ouverte
+      window.addEventListener('keydown', (e) => {
+        if (modal?.classList.contains('hidden')) return;
+        if (e.key === 'Escape') return closeModal();
+        if (e.key === '+' || (e.key === '=' && e.shiftKey)) { e.preventDefault(); setIframeZoom((zoom = Math.min(400, zoom + 10))); }
+        if (e.key === '-') { e.preventDefault(); setIframeZoom((zoom = Math.max(25, zoom - 10))); }
+        if (e.key.toLowerCase() === 'w') setIframeZoom('width');
+        if (e.key.toLowerCase() === 'p') setIframeZoom('page');
+        if (e.key.toLowerCase() === 'd') modal?.querySelector('[data-cv-download]')?.click();
+      });
+
+      // Toujours masquer toolbar dans la modale et gérer zoom
+      function setIframeZoom(modeOrPercent) {
+        if (!frame) return;
+        let hash = '';
+        if (modeOrPercent === 'page') hash = 'page-fit';
+        else if (modeOrPercent === 'width') hash = 'page-width';
+        else { hash = String(modeOrPercent); }
+        const base = (frame.dataset.src || '').split('#')[0];
+        if (base) {
+          // toolbar=0 UNIQUEMENT ici (dans la modale)
+          frame.src = `${base}#toolbar=0&zoom=${hash}&pagemode=none&view=FitH`;
+        }
+      }
+    </script>
+  </div>
+</section>
