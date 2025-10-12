@@ -35,7 +35,7 @@ export default {
     contact: {
         kicker: "Discutons",
         title: "Contact",
-        blurb: "Une question ou un projet en tête ? Écrivez-moi.",
+        blurb: "Une question ou besoin de plus d'informations ? Écrivez-moi.",
         locationLabel: "Localisation :",
         locationValue: "Le champ prés Froges, Isére",
         name: "Nom",

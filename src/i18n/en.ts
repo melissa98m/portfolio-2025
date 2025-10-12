@@ -36,7 +36,7 @@ export default {
   contact: {
     kicker: "Let's talk",
     title: "Contact",
-    blurb: "Have a question or a project in mind? Feel free to reach out.",
+    blurb: "Have a question or more informations? Feel free to reach out.",
     locationLabel: "Location:",
     locationValue: "Le champ près Froges, Isère",
     name: "Name",
