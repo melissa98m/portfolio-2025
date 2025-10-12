@@ -42,8 +42,16 @@ export default {
         email: "Email",
         message: "Message",
         send: "Envoyer",
-        success: "Merci pour votre message !",
+        success: "Message envoyé ! Merci pour votre message !",
         error: "Un problème est survenu lors de l’envoi du message.",
+        validation: {
+            nameRequired: "Le nom est requis.",
+            nameShort: "Au moins 2 caractères.",
+            emailRequired: "L’email est requis.",
+            emailInvalid: "Format d’email invalide.",
+            messageRequired: "Le message est requis.",
+            messageShort: "Au moins 10 caractères.",
+        }
     },
     footer: {
         rights: "Tous droits réservés.",

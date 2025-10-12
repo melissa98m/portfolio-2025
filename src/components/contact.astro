@@ -64,81 +64,193 @@ const cvPath = "/CV_MANGIONE_MELISSA.pdf";
         </div>
       </div>
 
-      <div>
-        <form
-          id="contact-form"
-          action="https://formspree.io/f/mnnjznkj"
-          method="POST"
-          class="flex flex-col gap-4"
-        >
-          <input
-            type="text"
-            name="from_name"
-            placeholder={t("contact.name")}
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-          />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder={t("contact.email")}
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-          />
-          <textarea
-            name="message"
-            placeholder={t("contact.message")}
-            rows="6"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
-          ></textarea>
-          <button
-            type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
-          >
-            {t("contact.send")}
-          </button>
-        </form>
-        <div
-          id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
-        >
-          ✅ {t("contact.success")}
-        </div>
-      </div>
+     <div>
+  <form
+    id="contact-form"
+    action="/api/contact"
+    method="POST"
+    class="flex flex-col gap-4"
+    novalidate
+    data-name-required={t('contact.validation.nameRequired')}
+  data-name-short={t('contact.validation.nameShort')}
+  data-email-required={t('contact.validation.emailRequired')}
+  data-email-invalid={t('contact.validation.emailInvalid')}
+  data-message-required={t('contact.validation.messageRequired')}
+  data-message-short={t('contact.validation.messageShort')}
+  data-sent={t('contact.success')}
+  data-failed={t('contact.error')}
+  >
+    <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+
+    <div class="flex flex-col gap-1">
+      <input
+        type="text"
+        name="from_name"
+        placeholder={t("contact.name")}
+        required
+        minlength="2"
+        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+        aria-invalid="false"
+      />
+      <p class="text-red-400 text-sm min-h-5" data-error="from_name"></p>
     </div>
+
+    <div class="flex flex-col gap-1">
+      <input
+        type="email"
+        name="reply_to"
+        placeholder={t("contact.email")}
+        required
+        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
+        aria-invalid="false"
+      />
+      <p class="text-red-400 text-sm min-h-5" data-error="reply_to"></p>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <textarea
+        name="message"
+        placeholder={t("contact.message")}
+        rows="6"
+        required
+        minlength="10"
+        class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
+        aria-invalid="false"
+      ></textarea>
+      <p class="text-red-400 text-sm min-h-5" data-error="message"></p>
+    </div>
+
+    <button
+      id="contact-submit"
+      type="submit"
+      class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
+    >
+      {t("contact.send")}
+    </button>
+  </form>
+
+  <div id="form-message" class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg">
+    ✅ {t("contact.success")}
   </div>
-</section>
+</div>
+
+
+<style is:inline>
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    padding: 12px 16px; border-radius: 8px; background: rgba(20,20,20,.95);
+    color: #fff; border: 1px solid rgba(255,255,255,.15); z-index: 9999;
+    box-shadow: 0 6px 24px rgba(0,0,0,.35);
+  }
+  .toast-success { background: #1b4d2d; }
+  .toast-error { background: #5b1b1b; }
+</style>
 
 <script type="module" is:inline>
   const form = document.getElementById("contact-form");
-  const formMessage = document.getElementById("form-message");
+  const btn = document.getElementById("contact-submit");
+   const errors = {
+    from_name: document.querySelector('[data-error="from_name"]'),
+    reply_to: document.querySelector('[data-error="reply_to"]'),
+    message: document.querySelector('[data-error="message"]'),
+  };
 
-  const successMsg = `{t("contact.success")}`;
-  const errorMsg = `{t("contact.error")}`;
+  const ds = form.dataset;
+  const labels = {
+  nameRequired: ds.nameRequired,
+  nameShort: ds.nameShort,
+  emailRequired: ds.emailRequired,
+  emailInvalid: ds.emailInvalid,
+  messageRequired: ds.messageRequired,
+  messageShort: ds.messageShort,
+  sent: ds.sent,
+  failed: ds.failed,
+};
+
+  console.log(labels);
+  function showToast(msg, type = "success") {
+    const el = document.createElement("div");
+    el.className = `toast ${type === "success" ? "toast-success" : "toast-error"}`;
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => { el.remove(); }, 3500);
+  }
+
+  function setFieldError(name, msg) {
+    if (errors[name]) errors[name].textContent = msg || "";
+    const field = form.elements[name];
+    if (field) field.setAttribute("aria-invalid", msg ? "true" : "false");
+  }
+
+  function validate() {
+    let ok = true;
+
+    // reset
+    setFieldError("from_name", "");
+    setFieldError("reply_to", "");
+    setFieldError("message", "");
+
+    const name = form.from_name.value.trim();
+    const email = form.reply_to.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name) { setFieldError("from_name", labels.nameRequired); ok = false; }
+    else if (name.length < 2) { setFieldError("from_name", labels.nameShort); ok = false; }
+
+    if (!email) { setFieldError("reply_to", labels.emailRequired); ok = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setFieldError("reply_to", labels.emailInvalid); ok = false; }
+
+    if (!message) { setFieldError("message", labels.messageRequired); ok = false; }
+    else if (message.length < 10) { setFieldError("message", labels.messageShort); ok = false; }
+
+    return ok;
+  }
+
+  // live validation (blur)
+  ["from_name", "reply_to", "message"].forEach((n) => {
+    const el = form.elements[n];
+    if (el) {
+      el.addEventListener("blur", validate);
+      el.addEventListener("input", () => setFieldError(n, "")); // clear on typing
+    }
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
+    if (!validate()) return;
 
+    const fd = new FormData(form);
+    // garde le honeypot si un bot le remplit
+    const payload = {
+      from_name: fd.get("from_name"),
+      reply_to: fd.get("reply_to"),
+      message: fd.get("message"),
+      company: fd.get("company") || "",
+    };
+
+    btn.disabled = true; btn.style.opacity = "0.6";
     try {
-      const response = await fetch(form.action, {
+      const res = await fetch(form.action, {
         method: "POST",
-        body: formData,
-        headers: { Accept: "application/json" },
+        headers: { "content-type": "application/json", "accept": "application/json" },
+        body: JSON.stringify(payload),
       });
-      if (response.ok) {
+
+      if (res.ok) {
         form.reset();
-        form.style.display = "none";
-        formMessage.classList.remove("hidden");
-        formMessage.textContent = `✅ ${successMsg}`;
+        showToast(`✅ ${labels.sent}`, "success");
       } else {
-        console.error("Error response:", await response.json());
-        alert(errorMsg);
+        let data = {};
+        try { data = await res.json(); } catch {}
+        if (data && data.errors) {
+          Object.entries(data.errors).forEach(([k, v]) => setFieldError(k, String(v)));
+        }
+        showToast(`❌ ${labels.failed}`, "error");
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert(errorMsg);
+    } catch (err) {
+      showToast(`❌ ${labels.failed}`, "error");
+    } finally {
+      btn.disabled = false; btn.style.opacity = "";
     }
   });
 </script>
