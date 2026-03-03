@@ -1,0 +1,44 @@
+nav {
+  transform: translateX(-50%);
+  background-color: var(--background);
+  transition:
+    background-color 0.3s ease,
+    border-radius 0.3s ease,
+    border-color 0.3s ease;
+}
+
+nav.scrolling {
+  background-color: var(--component-bg);
+  border-color: #ffffff10;
+  border-radius: 9999px;
+}
+
+nav a.active .nav-indicator {
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+}
+
+nav a.active {
+  color: white !important;
+}
+
+@media (max-width: 767px) {
+  nav {
+    width: 100% !important;
+    transform: translateX(-50%);
+    bottom: 0;
+    left: 50%;
+    position: fixed;
+    border-radius: 1rem 1rem 0 0;
+    border-color: #ffffff10;
+  }
+
+  nav.scrolling {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--component-bg);
+  }
+
+  body {
+    padding-bottom: 70px;
+  }
+}

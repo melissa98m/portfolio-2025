@@ -32,7 +32,7 @@ const description = t(`projects.descriptions.${id}`);
 const url = Astro.url.pathname;
 ---
 
-<Layout {title} {description} {lang} {url} ogImage={`/${project.imageName}.png`}>
+<Layout {title} {description} {lang} {url} ogImage={`/${project.imageName}.png`} {t}>
   <Nav {lang} {t} />
   <main class="min-h-screen text-[var(--white)] pt-24 pb-16">
     <div class="max-w-4xl mx-auto px-6">

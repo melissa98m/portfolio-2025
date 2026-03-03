@@ -1,0 +1,74 @@
+---
+import { LOCALES, type Locale } from "@/i18n/config";
+import { getI18n } from "@/i18n";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const { t } = getI18n(lang);
+
+const title = t("legal.mentionsLegales");
+const metaTitle = t("mentionsLegales.metaTitle");
+const metaDesc = t("mentionsLegales.metaDesc");
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+---
+
+<Layout title={metaTitle} description={metaDesc} {lang} {url} {t}>
+  <Nav {lang} {t} />
+  <main class="min-h-screen pt-24 pb-16 px-4">
+    <article class="max-w-3xl mx-auto space-y-8">
+      <header>
+        <a href={`/${lang}`} class="inline-flex items-center gap-2 text-[var(--sec)] hover:text-violet-400 transition-colors mb-6 text-sm">
+          ← {t("mentionsLegales.backHome")}
+        </a>
+        <h1 class="text-4xl font-medium text-[var(--white)] mb-2">{t("mentionsLegales.title")}</h1>
+        <p class="text-sm text-[var(--white-icon)]">{t("mentionsLegales.lastUpdate")}</p>
+      </header>
+
+      <div class="prose prose-invert space-y-8 text-[var(--white-icon)]">
+        <p class="leading-relaxed">{t("mentionsLegales.intro")}</p>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.editor.title")}</h2>
+          <p class="mb-1"><strong>{t("mentionsLegales.editor.name")}</strong></p>
+          <p class="mb-1">{t("mentionsLegales.editor.activity")}</p>
+          <p class="mb-1">{t("mentionsLegales.editor.address")}</p>
+          <a href="mailto:melissa.mangione@gmail.com" class="text-[var(--sec)] hover:text-violet-400">{t("mentionsLegales.editor.email")}</a>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.host.title")}</h2>
+          <p class="mb-1"><strong>{t("mentionsLegales.host.name")}</strong></p>
+          <p class="mb-1">{t("mentionsLegales.host.address")}</p>
+          <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[var(--sec)] hover:text-violet-400">{t("mentionsLegales.host.site")}</a>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.intellectual.title")}</h2>
+          <p class="leading-relaxed">{t("mentionsLegales.intellectual.content")}</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.links.title")}</h2>
+          <p class="leading-relaxed">{t("mentionsLegales.links.content")}</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.disclaimer.title")}</h2>
+          <p class="leading-relaxed">{t("mentionsLegales.disclaimer.content")}</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("mentionsLegales.law.title")}</h2>
+          <p class="leading-relaxed">{t("mentionsLegales.law.content")}</p>
+        </section>
+      </div>
+    </article>
+  </main>
+  <Footer {lang} {t} />
+</Layout>

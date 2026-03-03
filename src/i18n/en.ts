@@ -1,4 +1,7 @@
+import legalEn from "./legal-en";
+
 export default {
+    ...legalEn,
   meta: {
     title: "Mélissa Mangione — Fullstack Developer",
     description: "Fullstack Developer: e-commerce (Magento, PrestaShop), custom applications (Laravel, Symfony, Django), websites. Performance and accessibility at the core of my work.",

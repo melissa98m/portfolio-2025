@@ -1,0 +1,71 @@
+---
+import { LOCALES, type Locale } from "@/i18n/config";
+import { getI18n } from "@/i18n";
+import Layout from "@/layouts/Layout.astro";
+import Nav from "@/components/nav.astro";
+import Footer from "@/components/footer.astro";
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const { t } = getI18n(lang);
+
+const metaTitle = t("politiqueCookies.metaTitle");
+const metaDesc = t("politiqueCookies.metaDesc");
+const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;
+---
+
+<Layout title={metaTitle} description={metaDesc} {lang} {url} {t}>
+  <Nav {lang} {t} />
+  <main class="min-h-screen pt-24 pb-16 px-4">
+    <article class="max-w-3xl mx-auto space-y-8">
+      <header>
+        <a href={`/${lang}`} class="inline-flex items-center gap-2 text-[var(--sec)] hover:text-violet-400 transition-colors mb-6 text-sm">
+          ← {t("politiqueCookies.backHome")}
+        </a>
+        <h1 class="text-4xl font-medium text-[var(--white)] mb-2">{t("politiqueCookies.title")}</h1>
+        <p class="text-sm text-[var(--white-icon)]">{t("politiqueCookies.lastUpdate")}</p>
+      </header>
+
+      <div class="prose prose-invert space-y-8 text-[var(--white-icon)]">
+        <p class="leading-relaxed">{t("politiqueCookies.intro")}</p>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("politiqueCookies.what.title")}</h2>
+          <p class="leading-relaxed">{t("politiqueCookies.what.content")}</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("politiqueCookies.types.title")}</h2>
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-lg text-[var(--white)] mb-1">{t("politiqueCookies.types.essential.title")}</h3>
+              <p class="leading-relaxed">{t("politiqueCookies.types.essential.content")}</p>
+            </div>
+            <div>
+              <h3 class="text-lg text-[var(--white)] mb-1">{t("politiqueCookies.types.preference.title")}</h3>
+              <p class="leading-relaxed">{t("politiqueCookies.types.preference.content")}</p>
+            </div>
+            <div>
+              <h3 class="text-lg text-[var(--white)] mb-1">{t("politiqueCookies.types.analytics.title")}</h3>
+              <p class="leading-relaxed">{t("politiqueCookies.types.analytics.content")}</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("politiqueCookies.consent.title")}</h2>
+          <p class="leading-relaxed">{t("politiqueCookies.consent.content")}</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-medium text-[var(--white)] mb-3">{t("politiqueCookies.refusal.title")}</h2>
+          <p class="leading-relaxed">{t("politiqueCookies.refusal.content")}</p>
+        </section>
+      </div>
+    </article>
+  </main>
+  <Footer {lang} {t} />
+</Layout>

@@ -1,4 +1,7 @@
+import legalFr from "./legal-fr";
+
 export default {
+    ...legalFr,
     meta: {
         title: "Mélissa Mangione — Développeuse Fullstack",
         description: "Développeuse Fullstack : e-commerce (Magento, PrestaShop), applications sur-mesure (Laravel, Symfony, Django), sites web. Performance et accessibilité au cœur de mes réalisations.",

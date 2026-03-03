@@ -1,0 +1,113 @@
+:root {
+  --cursor-base: var(--sec);
+  --cursor-active: #8151f0;
+}
+@supports (color: color-mix(in oklab, white 50%, black)) {
+  :root {
+    --cursor-active: color-mix(in oklab, var(--sec) 65%, black);
+  }
+}
+
+/* hides the custom cursor on touch screens */
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+}
+
+/* custom cursor should never intercept clicks */
+.custom-cursor,
+.custom-cursor * {
+  pointer-events: none;
+}
+
+.cursor-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10001; /* Au-dessus de la bannière cookies (z-9999) */
+  user-select: none;
+  display: none;
+  will-change: transform;
+}
+
+.outer {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  border: 2px solid var(--cursor-base);
+  transition:
+    border-color 160ms ease,
+    border-width 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    opacity 160ms ease;
+  opacity: 0.98;
+  box-shadow:
+    0 0 18px rgba(164, 118, 255, 0.35),
+    0 0 2px rgba(0, 0, 0, 0.25) inset;
+  background-color: transparent;
+}
+
+.inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: var(--cursor-base);
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease;
+  box-shadow: 0 0 10px rgba(164, 118, 255, 0.55);
+}
+
+/* pulsing halo for clickable state */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(122, 79, 224, 0.45), 0 0 22px rgba(122, 79, 224, 0.65);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(122, 79, 224, 0), 0 0 26px rgba(122, 79, 224, 0.75);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(122, 79, 224, 0), 0 0 22px rgba(122, 79, 224, 0.65);
+  }
+}
+
+/* CLICK -> same shape, much stronger contrast */
+.is-clickable .outer {
+  border-color: var(--cursor-active);
+  border-width: 3px;
+  transform: scale(1.25);
+  background-color: color-mix(in oklab, var(--cursor-active) 18%, transparent);
+  box-shadow:
+    0 0 0 0 rgba(122, 79, 224, 0.45),
+    0 0 28px rgba(122, 79, 224, 0.85);
+  animation: glowPulse 1200ms ease-out infinite;
+}
+
+.is-clickable .inner {
+  background: var(--cursor-active);
+  transform: translate(-50%, -50%) scale(1.6);
+  box-shadow: 0 0 16px rgba(122, 79, 224, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outer,
+  .inner {
+    transition: none;
+    animation: none !important;
+  }
+  .is-clickable .outer {
+    transform: scale(1.15);
+  }
+  .is-clickable .inner {
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+}
