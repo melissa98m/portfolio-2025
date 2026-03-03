@@ -15,9 +15,10 @@ const categories: Category[] = [
     id: "web",
     title: t("skills.categories.web"),
     items: [
+      t("skills.items.web.admin"),
+      t("skills.items.web.fullstack"),
       t("skills.items.web.spa"),
       t("skills.items.web.landing"),
-      t("skills.items.web.portfolio"),
     ],
   },
   {
@@ -32,6 +33,14 @@ const categories: Category[] = [
       t("skills.items.project.gestion"),
       t("skills.items.project.redaction"),
       t("skills.items.project.ci"),
+    ],
+  },
+  {
+    id: "aiml",
+    title: t("skills.categories.aiml"),
+    items: [
+      t("skills.items.aiml.ml"),
+      t("skills.items.aiml.llm"),
     ],
   },
 ];
@@ -94,7 +103,7 @@ const skillsTitle = t("skills.title");
         </a>
         <a
           target="_blank"
-          href="https://mail.google.com/mail/?view=cm&fs=1&to=melissa.mangione@gmail.com&su=Bonjoury%20Melissa!"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=melissa.mangione@gmail.com&su=Bonjour%20Mélissa!"
           aria-label="Email"
           class="text-[var(--white-icon)]  hover:text-violet-400 transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
         >

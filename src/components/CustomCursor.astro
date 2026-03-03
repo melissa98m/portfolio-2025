@@ -134,8 +134,8 @@
         }
       };
 
-      // Move + clickable state
-      const onPointerMove = (e) => {
+      // Update position (used by move + pointerdown for focus restore)
+      const updatePosition = (e) => {
         tgt.x = e.clientX;
         tgt.y = e.clientY;
         reveal();
@@ -146,8 +146,10 @@
       // Fallback show if no movement yet
       const showFallback = window.setTimeout(reveal, 120);
 
-      window.addEventListener('pointermove', onPointerMove, { passive: true });
-      window.addEventListener('mousemove', onPointerMove, { passive: true }); // fallback
+      window.addEventListener('pointermove', (e) => updatePosition(e), { passive: true });
+      window.addEventListener('mousemove', (e) => updatePosition(e), { passive: true }); // fallback
+      // Mise à jour position au clic → corrige le curseur figé au retour d'onglet
+      document.addEventListener('pointerdown', (e) => updatePosition(e), { passive: true });
 
       // smooth tracking with inertia
       const speed = 0.18;
@@ -163,9 +165,17 @@
       window.addEventListener('mousedown', () => { outer.style.transform = 'scale(0.95)'; });
       window.addEventListener('mouseup', () => { outer.style.transform = ''; });
 
-      // Hide/Show on window focus
-      window.addEventListener('blur',  () => { wrap.style.display = 'none'; });
-      window.addEventListener('focus', () => { if (shown) wrap.style.display = 'block'; });
+      // Hide/Show sur perte de focus ou onglet caché
+      const hide = () => { wrap.style.display = 'none'; };
+      const show = () => { if (shown) wrap.style.display = 'block'; };
+
+      window.addEventListener('blur', hide);
+      window.addEventListener('focus', show);
+      // visibilitychange gère mieux le retour d'onglet (plus fiable que focus)
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') hide();
+        else show();
+      });
 
       // Cleanup on hot reload (dev)
       window.addEventListener('astro:after-swap', () => {
