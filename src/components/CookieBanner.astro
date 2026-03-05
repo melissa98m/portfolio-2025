@@ -113,7 +113,7 @@ import "../styles/cookie-banner.css";
     }
   }
 
-  function setConsent(essential, analytics) {
+  function setConsent(analytics) {
     const data = { essential: true, analytics: !!analytics, timestamp: Date.now() };
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(data));
   }
@@ -138,10 +138,10 @@ import "../styles/cookie-banner.css";
 
     function handleAction(action) {
       if (action === "accept-all") {
-        setConsent(true, true);
+        setConsent(true);
         hideBanner();
       } else if (action === "essential") {
-        setConsent(true, false);
+        setConsent(false);
         hideBanner();
       } else if (action === "customize") {
         mainView?.classList.add("hidden");
@@ -153,7 +153,7 @@ import "../styles/cookie-banner.css";
         customizeView?.classList.remove("flex");
       } else if (action === "save") {
         const analytics = document.getElementById("cookie-analytics")?.checked ?? false;
-        setConsent(true, analytics);
+        setConsent(analytics);
         hideBanner();
       }
     }
