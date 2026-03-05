@@ -12,7 +12,6 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Locale };
 const { t } = getI18n(lang);
 
-const title = t("legal.mentionsLegales");
 const metaTitle = t("mentionsLegales.metaTitle");
 const metaDesc = t("mentionsLegales.metaDesc");
 const url = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.pathname;

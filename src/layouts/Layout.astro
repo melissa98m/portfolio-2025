@@ -19,7 +19,7 @@ const {
 import "../styles/global.css";
 import CustomCursor from "../components/CustomCursor.astro";
 import CookieBanner from "../components/CookieBanner.astro";
-import Analytics from "@vercel/analytics/astro";
+import { Analytics } from "@vercel/analytics/astro";
 
 ---
 
@@ -53,7 +53,7 @@ import Analytics from "@vercel/analytics/astro";
         smoothWheel: true
       });
 
-      function raf(time) {
+      function raf(time: number) {
         lenis.raf(time);
         requestAnimationFrame(raf);
       }
