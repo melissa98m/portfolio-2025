@@ -19,7 +19,6 @@ const {
 import "../styles/global.css";
 import CustomCursor from "../components/CustomCursor.astro";
 import CookieBanner from "../components/CookieBanner.astro";
-import { Analytics } from "@vercel/analytics/astro";
 
 ---
 
@@ -44,9 +43,10 @@ import { Analytics } from "@vercel/analytics/astro";
     <CustomCursor />
     <slot />
     {t && <CookieBanner {lang} {t} />}
-    <Analytics />
     <script>
+      import { inject } from "@vercel/analytics";
       import Lenis from "lenis";
+      inject();
       const lenis = new Lenis({
         duration: 1.1,
         easing: (t) => 1 - Math.pow(1 - t, 3),
