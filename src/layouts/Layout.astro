@@ -5,6 +5,7 @@ interface Props {
   lang?: "fr" | "en";
   url?: string;
   ogImage?: string;
+  t?: (k: string) => string;
 }
 const {
   title,
@@ -12,9 +13,12 @@ const {
   lang = "en",
   url = "/",
   ogImage = "/favicon.png",
+  t,
 } = Astro.props;
 
+import "../styles/global.css";
 import CustomCursor from "../components/CustomCursor.astro";
+import CookieBanner from "../components/CookieBanner.astro";
 
 ---
 
@@ -38,15 +42,18 @@ import CustomCursor from "../components/CustomCursor.astro";
   <body class="bg-[--background] sm:px-28 lg:px-20 px-9">
     <CustomCursor />
     <slot />
+    {t && <CookieBanner {lang} {t} />}
     <script>
+      import { inject } from "@vercel/analytics";
       import Lenis from "lenis";
+      inject();
       const lenis = new Lenis({
         duration: 1.1,
         easing: (t) => 1 - Math.pow(1 - t, 3),
         smoothWheel: true
       });
 
-      function raf(time) {
+      function raf(time: number) {
         lenis.raf(time);
         requestAnimationFrame(raf);
       }
@@ -54,55 +61,3 @@ import CustomCursor from "../components/CustomCursor.astro";
     </script>
   </body>
 </html>
-
-<style is:global>
-  @import url("https://fonts.cdnfonts.com/css/montserrat");
-
-  :root {
-    --background: #101010;
-    --sec: #a476ff;
-    --white: #dfdfdf;
-    --white-icon: #f3f3f398;
-    --white-icon-tr: #f3f3f310;
-  }
-
-  * {
-    font-family:
-      "Montserrat",
-      -apple-system,
-      system-ui,
-      sans-serif;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-
-  *::selection {
-    background-color: var(--sec);
-    color: var(--background);
-  }
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 15px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--container);
-    border-radius: 30px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--background);
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
-  }
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--line) var(--container);
-  }
-  /* disable ALL native sliders when custom sliders are active (prevents hand movement) */
-  html.custom-cursor-enabled,
-  html.custom-cursor-enabled * {
-    cursor: none !important;
-  }
-</style>

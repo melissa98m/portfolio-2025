@@ -1,0 +1,24 @@
+---
+import { TECH_COLORS, getTechLabel } from "@/lib/techLabels";
+
+interface Props {
+  tech: string;
+  size?: "sm" | "md";
+}
+
+const { tech, size = "sm" } = Astro.props;
+const colorClass = TECH_COLORS[tech] ?? "bg-zinc-600/90 text-zinc-100";
+const label = getTechLabel(tech);
+
+const sizeClasses = {
+  sm: "px-2.5 py-1 text-xs",
+  md: "px-3 py-1.5 text-sm",
+};
+---
+
+<span
+  class={`inline-flex items-center font-medium rounded-lg transition-all duration-200 ease-out hover:scale-[1.03] hover:shadow-md active:scale-[0.98] ${colorClass} ${sizeClasses[size]}`}
+  title={label}
+>
+  {label}
+</span>

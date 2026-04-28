@@ -1,4 +1,5 @@
 ---
+import "../styles/footer.css";
 import LikeButton from "../React/LikeButton.tsx";
 const { lang = "fr", t } = Astro.props as {
   lang: "fr" | "en";
@@ -108,7 +109,7 @@ const embedUrl = myPlaylistUrl.replace(
       <div class="flex flex-col items-center lg:items-start space-y-6">
         <div class="w-full max-w-xs">
           <iframe
-            style="border-radius:12px; border:0;"
+            class="footer-spotify-iframe"
             src={`${embedUrl}?theme=0&locale=${spotifyLocale}`}
             class="w-full h-40"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -117,7 +118,7 @@ const embedUrl = myPlaylistUrl.replace(
       </div>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-[#ffffff10]">
+    <div class="mt-12 pt-8 border-t border-[#ffffff10] space-y-3">
       <p class="text-center text-sm text-[var(--white-icon)] space-y-2">
         <!-- Conformément à la licence MIT, merci de conserver la notice de copyright -->
         <span class="block sm:inline">
@@ -132,6 +133,17 @@ const embedUrl = myPlaylistUrl.replace(
           {t("footer.rights")}
         </span>
       </p>
+      <div class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
+        <a href={`/${lang}/mentions-legales`} class="text-violet-400 hover:text-white transition-colors">
+          {t("legal.mentionsLegales")}
+        </a>
+        <a href={`/${lang}/politique-confidentialite`} class="text-violet-400 hover:text-white transition-colors">
+          {t("legal.politiqueConfidentialite")}
+        </a>
+        <a href={`/${lang}/politique-cookies`} class="text-violet-400 hover:text-white transition-colors">
+          {t("legal.politiqueCookies")}
+        </a>
+      </div>
     </div>
   </div>
 </footer>
