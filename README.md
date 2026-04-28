@@ -12,12 +12,12 @@ Hébergez sur Vercel, Netlify ou tout autre hébergeur de fichiers statiques. Le
 
 ## Stack
 
-* **Astro 5** (sortie statique)
+* **Astro 5** (output server pour l'API contact)
 * **React 19** (îlots interactifs)
 * **Tailwind CSS**
 * **TypeScript**
-* **Formspree** pour le formulaire de contact
-* **Firebase / Firestore** prêt à l’emploi (optionnel)
+* **Resend** — formulaire de contact (route `/api/contact`)
+* **Supabase** prêt à l’emploi (optionnel)
 
 ---
 
@@ -107,18 +107,24 @@ Ajustez également l’URL du **formulaire de contact** (Formspree) si besoin da
 │   │   └── SkillsList.tsx
 │   ├── components/            # composants Astro
 │   │   ├── CustomCursor.astro
-│   │   ├── contact.astro      # formulaire Formspree
+│   │   ├── contact.astro      # formulaire + API Resend
+│   │   ├── TechTag.astro
 │   │   ├── footer.astro
 │   │   ├── home.astro
 │   │   ├── logoWall.astro
 │   │   ├── nav.astro
 │   │   └── projects.astro
+│   ├── data/
+│   │   └── projects.ts        # données projets
 │   ├── layouts/
 │   │   └── Layout.astro
+│   ├── lib/
+│   │   ├── supabase.ts        # client Supabase
+│   │   └── techLabels.ts      # labels/couleurs des techs
 │   ├── i18n/                  # config et dictionnaires
 │   ├── pages/
-│   │   └── [lang]/index.astro
-│   ├── firebase.ts            # init Firestore (optionnel)
+│   │   ├── api/contact.ts     # route API Resend
+│   │   └── [lang]/            # index, projet/[id]
 │   ├── middleware.ts          # redirection / → /fr
 │   └── env.d.ts
 ├── astro.config.mjs
@@ -148,7 +154,7 @@ Ajustez également l’URL du **formulaire de contact** (Formspree) si besoin da
   * `src/firebase.ts` initialise une instance Firestore exportée en `db`. Aucun composant ne l’utilise par défaut. Ajoutez vos appels client si nécessaire (attention à l’exposition des clés).
 * **Accessibilité & perf**
 
-  * Tailwind pour un CSS minimal, Astro sort une version statique par défaut.
+  * Tailwind pour un CSS minimal. Pages statiques pré-rendues + API serverless pour le contact.
   * Les îlots React ne chargent que là où nécessaire.
 
 ---
@@ -165,7 +171,7 @@ Ajustez également l’URL du **formulaire de contact** (Formspree) si besoin da
 
 ### Autres hébergeurs
 
-* Build local puis uploadez le dossier **`dist/`** (GitHub Pages, Netlify, OVH statique, S3 + CloudFront, etc.).
+* Le projet utilise `output: "server"` pour l'API contact. Pour un hébergement statique pur, il faudrait adapter la config (output static + service externe pour le formulaire).
 
 ---
 
