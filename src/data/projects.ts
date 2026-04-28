@@ -1,30 +1,51 @@
-export type ProjectStatus = "deployed" | "wip" | "contributor";
+export type ProjectStatus = "deployed" | "wip" | "contributor" | "private";
 
 export interface ProjectData {
   id: string;
   title: string;
   imageName: string;
-  link: string;
-  preview: string;
+  link?: string;
+  preview?: string;
   status: ProjectStatus;
   techs: string[];
   /** Si true, une page détail existe */
   hasDetailPage?: boolean;
+  /** Chemin vers le logo SVG, affiché dans la page détail */
+  logo?: string;
 }
 
 export const PROJECT_IDS = [
+  "dernierSigne",
+  "dashboardDocker",
   "weeb",
   "mangaddict",
   "ops",
   "sousLaMer",
   "salamandre",
   "fleuriste",
-  "dashboardDocker",
 ] as const;
 
 export type ProjectId = (typeof PROJECT_IDS)[number];
 
 export const projectsData: ProjectData[] = [
+  {
+    id: "dernierSigne",
+    title: "Dernier Signe",
+    imageName: "dernier-signe",
+    preview: "https://dernier-signe.vercel.app/",
+    status: "wip",
+    techs: ["django", "react", "vite", "tailwindcss", "framerMotion", "celery", "redis", "postgresql", "stripe", "resend", "docker"],
+    hasDetailPage: true,
+    logo: "/dernier-signe-logo.svg",
+  },
+  {
+    id: "dashboardDocker",
+    title: "Dashboard Docker",
+    imageName: "dashboard-docker",
+    status: "private",
+    techs: ["fastapi", "next", "react", "sqlite", "docker", "resend"],
+    hasDetailPage: true,
+  },
   {
     id: "weeb",
     title: "Weeb Website",
@@ -83,16 +104,6 @@ export const projectsData: ProjectData[] = [
     techs: ["next", "payload", "tailwindcss", "typeScript", "postgresql", "vercel"],
     hasDetailPage: true,
   },
-  {
-    id: "dashboardDocker",
-    title: "Dashboard Docker",
-    imageName: "dashboard-docker",
-    link: "https://github.com/melissa98m/dashboard-docker",
-    preview: "https://github.com/melissa98m/dashboard-docker",
-    status: "wip",
-    techs: ["fastapi", "next", "react", "sqlite", "docker", "resend"],
-    hasDetailPage: true,
-  },
 ];
 
 export function getProjectById(id: string): ProjectData | undefined {
@@ -104,6 +115,10 @@ export const PROJECT_DETAIL_KEYS: Record<
   string,
   { features: string[]; techStack: string[] }
 > = {
+  dernierSigne: {
+    features: ["auth", "prestation", "payment", "catalog", "deathDetection", "admin", "rgpd", "contact", "design"],
+    techStack: ["backend", "frontend", "devops"],
+  },
   weeb: {
     features: ["public", "auth", "profile", "admin", "ml", "theme", "protections"],
     techStack: ["backend", "frontend", "tools", "devops"],

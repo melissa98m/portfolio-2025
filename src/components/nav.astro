@@ -139,13 +139,14 @@ const otherLang = lang === "fr" ? "en" : "fr";
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
         const id = entry.target.getAttribute("id");
         if (!id) return;
 
         navLinks.forEach((link) => {
           const linkHash = new URL(link.href).hash.replace("#", "");
-          link.classList.toggle("active", linkHash === id);
+          if (linkHash === id) {
+            link.classList.toggle("active", entry.isIntersecting);
+          }
         });
       });
     }, observerOptions);

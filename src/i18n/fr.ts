@@ -30,11 +30,13 @@ export default {
             deployed: "En ligne",
             wip: "En développement",
             contributor: "Contributeur·rice",
+            private: "Privé",
         },
         github: "GitHub",
         preview: "Aperçu",
         moreOn: "Plus de projets sur",
         descriptions: {
+            dernierSigne: "Application post-mortem : préparez un message, une lettre ou un cadeau transmis à un proche après détection de votre décès. Django, Celery, Stripe, React.",
             weeb: "Site Weeb : authentification, panneau admin, blog, formations. Backend Django avec worker ML pour la prédiction de satisfaction. React, Vite.",
             mangaddict: "Plateforme communautaire manga : notation, avis, listes personnalisées, mangathèque et recommandations. Symfony, PHP, Tailwind.",
             ops: "Site vitrine pour une entreprise de sécurité privée outdoor.",
@@ -46,6 +48,31 @@ export default {
         detail: {
             backToProjects: "Retour aux projets",
             visitSite: "Voir le site",
+            visualIdentityTitle: "Identité visuelle",
+            dernierSigne: {
+                intro: "Dernier Signe est une application web permettant de préparer un message, une lettre ou un cadeau qui sera transmis à un proche après détection du décès de l'utilisateur. Le backend Django orchestre l'authentification JWT, les prestations, les paiements Stripe et la détection quotidienne des décès via un fichier parquet officiel (data.gouv.fr), traitée par Celery.",
+                features: {
+                    title: "Fonctionnalités",
+                    auth: "Authentification JWT (cookies HttpOnly) : inscription, connexion, vérification email, réinitialisation mot de passe, profil",
+                    prestation: "Prestations post-mortem : création et gestion de 3 types (email, lettre, cadeau) avec prix fixes côté backend",
+                    payment: "Paiement Stripe Checkout, webhook d'activation, facture PDF téléchargeable via Resend",
+                    catalog: "Catalogue de cadeaux : liste publique et gestion admin (CRUD)",
+                    deathDetection: "Détection des décès : synchronisation quotidienne du parquet officiel data.gouv.fr via Celery Beat, matching multi-critères (nom, prénom, date de naissance, lieu)",
+                    admin: "Back-office : liste des prestations déclenchées, marquage envoyé, numéro de suivi postal, statut système",
+                    rgpd: "RGPD : export des données personnelles en JSON, suppression du compte (anonymisation)",
+                    contact: "Formulaire de contact avec rate limiting (3/h par IP)",
+                    design: "Identité visuelle complète : logo, charte graphique et direction artistique conçus de A à Z pour le projet.",
+                },
+                techStack: {
+                    title: "Stack technique",
+                    backendLabel: "Backend",
+                    frontendLabel: "Frontend",
+                    devopsLabel: "Infrastructure",
+                    backend: "Python 3.12, Django 5.2, Django REST Framework, SimpleJWT, Celery, Redis, PostgreSQL, Stripe, Resend, drf-spectacular, pytest",
+                    frontend: "React 19, React Router 7, Vite 6, Tailwind CSS 4, Framer Motion",
+                    devops: "Docker Compose, PostgreSQL 16, Redis 7. Variante Raspberry Pi optimisée (ARM64, Gunicorn, rotation des logs).",
+                },
+            },
             weeb: {
                 intro: "Weeb est une plateforme web moderne pour l'entreprise Weeb : pages publiques, authentification complète, panneau d'administration, blog, formations. Le backend inclut un worker Machine Learning qui prédit la satisfaction des feedbacks (TF-IDF + LinearSVC).",
                 features: {

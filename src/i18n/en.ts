@@ -30,11 +30,13 @@ export default {
       deployed: "Deployed",
       wip: "In development",
       contributor: "Contributor",
+      private: "Private",
     },
     github: "GitHub",
     preview: "Preview",
     moreOn: "More projects on",
     descriptions: {
+      dernierSigne: "Post-mortem app: prepare a message, letter or gift to be delivered to a loved one after your death is detected. Django, Celery, Stripe, React.",
       weeb: "Weeb site: authentication, admin panel, blog, trainings. Django backend with ML worker for feedback satisfaction prediction. React, Vite.",
       mangaddict: "Manga community platform: ratings, reviews, custom lists, personal library and recommendations. Symfony, PHP, Tailwind.",
       ops: "Business website for an outdoor private security company.",
@@ -46,6 +48,31 @@ export default {
     detail: {
       backToProjects: "Back to projects",
       visitSite: "Visit site",
+      visualIdentityTitle: "Visual identity",
+      dernierSigne: {
+        intro: "Dernier Signe is a web application that lets users prepare a message, letter, or gift to be delivered to a loved one after their death is detected. The Django backend handles JWT authentication, prestations, Stripe payments, and daily death detection via an official parquet file (data.gouv.fr), processed by Celery.",
+        features: {
+          title: "Features",
+          auth: "JWT authentication (HttpOnly cookies): signup, login, email verification, password reset, profile",
+          prestation: "Post-mortem prestations: create and manage 3 types (email, letter, gift) with backend-enforced fixed prices",
+          payment: "Stripe Checkout payment, activation webhook, downloadable PDF invoice via Resend",
+          catalog: "Gift catalog: public listing and admin management (CRUD)",
+          deathDetection: "Death detection: daily sync of official data.gouv.fr parquet via Celery Beat, multi-criteria matching (name, given name, date of birth, place of birth)",
+          admin: "Back-office: list of triggered prestations, mark-as-sent, postal tracking number, system health",
+          rgpd: "GDPR: personal data export as JSON, account deletion (anonymisation)",
+          contact: "Contact form with rate limiting (3/h per IP)",
+          design: "Full visual identity: logo, brand guidelines and art direction designed from scratch for the project.",
+        },
+        techStack: {
+          title: "Tech stack",
+          backendLabel: "Backend",
+          frontendLabel: "Frontend",
+          devopsLabel: "Infrastructure",
+          backend: "Python 3.12, Django 5.2, Django REST Framework, SimpleJWT, Celery, Redis, PostgreSQL, Stripe, Resend, drf-spectacular, pytest",
+          frontend: "React 19, React Router 7, Vite 6, Tailwind CSS 4, Framer Motion",
+          devops: "Docker Compose, PostgreSQL 16, Redis 7. Raspberry Pi-optimised variant (ARM64, Gunicorn, log rotation).",
+        },
+      },
       weeb: {
         intro: "Weeb is a modern web platform for Weeb: public pages, full authentication, admin panel, blog, trainings. The backend includes a Machine Learning worker that predicts feedback satisfaction (TF-IDF + LinearSVC).",
         features: {

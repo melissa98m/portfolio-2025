@@ -32,6 +32,8 @@ export const TECH_COLORS: Record<string, string> = {
   payload: "bg-indigo-600/90 text-white",
   fastapi: "bg-teal-600/90 text-white",
   sqlite: "bg-sky-700/90 text-white",
+  stripe: "bg-violet-600/90 text-white",
+  celery: "bg-lime-600/90 text-white",
 };
 
 const TECH_LABELS: Record<string, string> = {
@@ -52,6 +54,8 @@ const TECH_LABELS: Record<string, string> = {
   payload: "Payload CMS",
   fastapi: "FastAPI",
   sqlite: "SQLite",
+  stripe: "Stripe",
+  celery: "Celery",
 };
 
 export function getTechLabel(tech: string): string {
