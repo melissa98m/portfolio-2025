@@ -9,6 +9,8 @@ const { lang = "fr", t } = Astro.props as {
 const ariaLabel = t("likeButton.aria");
 const likeSingular = t("likeButton.likeSingular");
 const likePlural = t("likeButton.likePlural");
+const currentYear = new Date().getFullYear();
+const copyrightYear = currentYear === 2025 ? "2025" : `${currentYear}`;
 
 // Locale Spotify
 const spotifyLocale = lang === "fr" ? "fr_FR" : "en_US";
@@ -122,7 +124,7 @@ const embedUrl = myPlaylistUrl.replace(
       <p class="text-center text-sm text-[var(--white-icon)] space-y-2">
         <!-- Conformément à la licence MIT, merci de conserver la notice de copyright -->
         <span class="block sm:inline">
-          Copyright © 2025
+          Copyright © {copyrightYear}
           <a
             href="https://github.com/melissa98m/"
             target="_blank"
