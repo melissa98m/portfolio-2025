@@ -1,36 +1,13 @@
 ---
-import { Image } from "astro:assets";
 import { projectsData } from "@/data/projects";
 import TechTag from "@/components/TechTag.astro";
-import ops from "../../public/ops.png";
-import mangaddict from "../../public/mangaddict.png";
-import weeb from "../../public/weeb.png";
-import fleuriste from "../../public/fleuriste.png";
-import salamandre from "../../public/salamandre.png";
-import sousLaMer from "../../public/sous-la-mer.png";
-import dashboardDocker from "../../public/dashboard-docker.png";
-import dernierSigne from "../../public/dernier-signe.png";
 
 const { lang = "fr", t } = Astro.props as {
   lang?: "fr" | "en";
   t: (k: string) => string;
 };
 
-const IMAGE_MAP: Record<string, ImageMetadata> = {
-  weeb: weeb as ImageMetadata,
-  mangaddict: mangaddict as ImageMetadata,
-  ops: ops as ImageMetadata,
-  fleuriste: fleuriste as ImageMetadata,
-  salamandre: salamandre as ImageMetadata,
-  "sous-la-mer": sousLaMer as ImageMetadata,
-  "dashboard-docker": dashboardDocker as ImageMetadata,
-  "dernier-signe": dernierSigne as ImageMetadata,
-};
-
-const projects = projectsData.map((p) => ({
-  ...p,
-  image: IMAGE_MAP[p.imageName],
-}));
+const projects = projectsData;
 
 const STATUS_COLORS: Record<"deployed" | "wip" | "contributor" | "private", { dot: string; ping: string }> = {
     deployed: { dot: "bg-lime-400", ping: "bg-lime-400" },
@@ -67,10 +44,11 @@ const STATUS_COLORS: Record<"deployed" | "wip" | "contributor" | "private", { do
               class={`block${!cardHref ? " cursor-default" : ""}`}
             >
               <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4">
-                <Image
-                  src={project.image}
+                <img
+                  src={`/${project.imageName}.png`}
                   alt={project.title}
                   class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
               </div>
               <div class="flex items-center px-3">
