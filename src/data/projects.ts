@@ -19,6 +19,7 @@ export const PROJECT_IDS = [
   "dashboardDocker",
   "weeb",
   "mangaddict",
+  "woofalk",
   "ops",
   "sousLaMer",
   "salamandre",
@@ -63,6 +64,16 @@ export const projectsData: ProjectData[] = [
     preview: "https://mangaddict.melissa-mangione.com/",
     status: "deployed",
     techs: ["PHP", "symfony", "tailwindcss", "twig", "stimulus", "redis", "mysql", "docker", "webpack"],
+    hasDetailPage: true,
+  },
+  {
+    id: "woofalk",
+    title: "Woofalk",
+    imageName: "woofalk",
+    link: "https://github.com/melissa98m/Woofalk",
+    preview: "https://woofalk.com",
+    status: "deployed",
+    techs: ["laravel", "PHP", "react", "vite", "mysql", "docker", "githubActions", "vercel"],
     hasDetailPage: true,
   },
   {
@@ -138,6 +149,10 @@ export const PROJECT_DETAIL_KEYS: Record<
   salamandre: {
     features: ["home", "legal", "contact", "analytics", "seo"],
     techStack: ["core", "tools"],
+  },
+  woofalk: {
+    features: ["browse", "content", "map", "likes", "profile", "admin", "mobile"],
+    techStack: ["backend", "frontend", "mobile", "devops"],
   },
   fleuriste: {
     features: ["admin", "design", "customization", "contact", "performance"],
