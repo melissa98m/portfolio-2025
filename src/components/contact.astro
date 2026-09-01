@@ -241,19 +241,20 @@ const cvPath = "/CV_MANGIONE_MELISSA.pdf";
           if (!validate()) return;
 
           const fd = new FormData(form);
-          const qs = new URLSearchParams({
+          const payload = {
             from_name: String(fd.get("from_name") || ""),
             reply_to: String(fd.get("reply_to") || ""),
             message: String(fd.get("message") || ""),
             company: String(fd.get("company") || ""),
-          });
+          };
 
           btn.disabled = true;
           btn.style.opacity = "0.6";
           try {
-            const res = await fetch(`${form.action}?${qs.toString()}`, {
+            const res = await fetch(form.action, {
               method: "POST",
-              body: fd,
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
             });
 
             if (res.ok) {
