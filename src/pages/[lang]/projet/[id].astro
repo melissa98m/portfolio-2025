@@ -62,7 +62,7 @@ const url = Astro.url.pathname;
               href={project.preview}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--sec)] text-white font-medium hover:opacity-90 transition"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--sec)] text-[var(--background)] font-medium hover:opacity-90 transition"
             >
               {t("projects.detail.visitSite")}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -72,7 +72,7 @@ const url = Astro.url.pathname;
           ) : (
             <span
               aria-disabled="true"
-              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--sec)] text-white font-medium opacity-30 cursor-not-allowed"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--sec)] text-[var(--background)] font-medium opacity-30 cursor-not-allowed"
             >
               {t("projects.detail.visitSite")}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
