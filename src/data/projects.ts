@@ -15,6 +15,7 @@ export interface ProjectData {
 }
 
 export const PROJECT_IDS = [
+  "bresone",
   "dernierSigne",
   "dashboardDocker",
   "weeb",
@@ -29,6 +30,16 @@ export const PROJECT_IDS = [
 export type ProjectId = (typeof PROJECT_IDS)[number];
 
 export const projectsData: ProjectData[] = [
+  {
+    id: "bresone",
+    title: "Bresone",
+    imageName: "bresone",
+    preview: "https://bresone.fr/",
+    status: "deployed",
+    techs: ["flutter", "fastapi", "postgresql", "websockets", "redis", "minio", "ml", "ollama", "docker", "githubActions", "resend"],
+    hasDetailPage: true,
+    logo: "/bresone-logo.png",
+  },
   {
     id: "dernierSigne",
     title: "Dernier Signe",
@@ -121,6 +132,25 @@ export const PROJECT_DETAIL_KEYS: Record<
   string,
   { features: string[]; techStack: string[] }
 > = {
+  bresone: {
+    features: [
+      "auth",
+      "profiles",
+      "discovery",
+      "flames",
+      "messaging",
+      "llm",
+      "trust",
+      "moderation",
+      "identity",
+      "premium",
+      "push",
+      "rgpd",
+      "staff",
+      "design",
+    ],
+    techStack: ["mobile", "backend", "data", "devops"],
+  },
   dernierSigne: {
     features: ["auth", "prestation", "payment", "catalog", "deathDetection", "admin", "rgpd", "contact", "design"],
     techStack: ["backend", "frontend", "devops"],

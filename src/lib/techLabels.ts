@@ -34,6 +34,10 @@ export const TECH_COLORS: Record<string, string> = {
   sqlite: "bg-sky-700/90 text-white",
   stripe: "bg-violet-600/90 text-white",
   celery: "bg-lime-700/90 text-white",
+  flutter: "bg-sky-700/90 text-white",
+  websockets: "bg-zinc-700 text-zinc-100",
+  minio: "bg-rose-700/90 text-white",
+  ollama: "bg-zinc-800 text-zinc-100",
 };
 
 const TECH_LABELS: Record<string, string> = {
@@ -56,6 +60,8 @@ const TECH_LABELS: Record<string, string> = {
   sqlite: "SQLite",
   stripe: "Stripe",
   celery: "Celery",
+  websockets: "WebSockets",
+  minio: "MinIO",
 };
 
 export function getTechLabel(tech: string): string {
