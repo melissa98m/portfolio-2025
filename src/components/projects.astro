@@ -1,5 +1,5 @@
 ---
-import { projectsData } from "@/data/projects";
+import { projectsData, getDisplayStatus, type DisplayStatus } from "@/data/projects";
 import TechTag from "@/components/TechTag.astro";
 
 const { lang = "fr", t } = Astro.props as {
@@ -9,8 +9,9 @@ const { lang = "fr", t } = Astro.props as {
 
 const projects = projectsData;
 
-const STATUS_COLORS: Record<"deployed" | "wip" | "contributor" | "private", { dot: string; ping: string }> = {
+const STATUS_COLORS: Record<DisplayStatus, { dot: string; ping: string }> = {
     deployed: { dot: "bg-lime-400", ping: "bg-lime-400" },
+    maintenance: { dot: "bg-orange-500", ping: "bg-orange-500" },
     wip: { dot: "bg-yellow-300", ping: "bg-yellow-300" },
     contributor: { dot: "bg-teal-400", ping: "bg-teal-400" },
     private: { dot: "bg-red-500", ping: "bg-red-500" },
@@ -58,8 +59,9 @@ const STATUS_COLORS: Record<"deployed" | "wip" | "contributor" | "private", { do
                     {t(`projects.descriptions.${project.id}`)}
                   </p>
                   {(() => {
+                    const status = getDisplayStatus(project);
                     const c =
-                      STATUS_COLORS[project.status] ??
+                      STATUS_COLORS[status] ??
                       STATUS_COLORS.contributor;
                     return (
                       <div class="mt-1 inline-flex items-center gap-2">
@@ -75,7 +77,7 @@ const STATUS_COLORS: Record<"deployed" | "wip" | "contributor" | "private", { do
                           />
                         </span>
                         <span class="py-1 text-sm text-[var(--white-icon)]">
-                          {t(`projects.status.${project.status}`)}
+                          {t(`projects.status.${status}`)}
                         </span>
                       </div>
                     );

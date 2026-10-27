@@ -31,6 +31,7 @@ export default {
       wip: "In development",
       contributor: "Contributor",
       private: "Private",
+      maintenance: "Under maintenance",
     },
     github: "GitHub",
     preview: "Preview",

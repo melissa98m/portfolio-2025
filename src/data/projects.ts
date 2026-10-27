@@ -1,4 +1,8 @@
-export type ProjectStatus = "deployed" | "wip" | "contributor" | "private";
+import siteStatus from "./site-status.json" with { type: "json" };
+
+const MAINTENANCE_IDS: readonly string[] = siteStatus.maintenance;
+
+export type ProjectStatus ="deployed" | "wip" | "contributor" | "private";
 
 export interface ProjectData {
   id: string;
@@ -125,6 +129,16 @@ export const projectsData: ProjectData[] = [
 
 export function getProjectById(id: string): ProjectData | undefined {
   return projectsData.find((p) => p.id === id);
+}
+
+/** Statut affiché : un projet "deployed" signalé en erreur par scripts/check-sites.ts passe en "maintenance" */
+export type DisplayStatus = ProjectStatus | "maintenance";
+
+export function getDisplayStatus(project: ProjectData): DisplayStatus {
+  if (project.status === "deployed" && MAINTENANCE_IDS.includes(project.id)) {
+    return "maintenance";
+  }
+  return project.status;
 }
 
 /** Clés des sections détail par projet (i18n: projects.detail.{id}.features / techStack) */

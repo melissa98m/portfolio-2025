@@ -1,0 +1,40 @@
+name: Vérification des sites en ligne
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # tous les jours à 6 h UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-sites
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Vérifier les sites
+        run: node scripts/check-sites.ts
+
+      # Commit uniquement si la liste des sites en maintenance a changé : le push déclenche le
+      # redéploiement Vercel, inutile de redéployer chaque jour quand rien ne bouge.
+      - name: Commiter le nouveau statut
+        run: |
+          if git diff --quiet src/data/site-status.json; then
+            echo "Aucun changement de statut."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/site-status.json
+          git commit -m "chore: mettre à jour le statut des sites en ligne"
+          git push
