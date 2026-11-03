@@ -67,7 +67,7 @@ export const projectsData: ProjectData[] = [
     title: "Weeb Website",
     imageName: "weeb",
     link: "https://github.com/melissa98m/weeb-website",
-    preview: "https://weeb-website.vercel.app/",
+    preview: "https://weeb.melissa-mangione.com",
     status: "deployed",
     techs: ["react", "django", "ml", "vite", "tailwindcss", "vercel", "framerMotion", "docker", "githubActions"],
     hasDetailPage: true,
